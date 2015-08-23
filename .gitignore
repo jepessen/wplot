@@ -1,0 +1,14 @@
+*.user
+*.autosave
+*.gz
+*.pdf
+*.log
+*.aux
+*.tdo
+*.dvi
+*.ps
+*.toc
+*.lof
+*pre1
+
+*.user.*

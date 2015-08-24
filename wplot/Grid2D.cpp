@@ -349,14 +349,18 @@ void Grid2D::drawGridY(Plot2D *plot) {
 	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.bottom;
 	for (double y = plot->height() - secondaryAlfa; y > padding.top; y += secondaryStep) {
 		const double dy = plot->height() - y;
-		painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		if (dy > padding.top) {
+			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		}
 	}
 	// workaround for first line when origin is negative.
 	// @todo: convert workaround in right formula.
 	if (origin.y() > 0.0) {
 		const double y = secondaryAlfa - secondaryStep;
 		const double dy = plot->height() - y;
-		painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		if (dy > padding.top) {
+			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		}
 	}
 	painter.setPen(m_primaryYPen);
 	const double primaryStep = plot->scalePointY(m_primaryYStep) - origin.y();
@@ -364,14 +368,18 @@ void Grid2D::drawGridY(Plot2D *plot) {
 	const double primaryAlfa = primaryStep - primaryBeta + padding.bottom;
 	for (double y = plot->height() - primaryAlfa; y > padding.top; y += primaryStep) {
 		const double dy = plot->height() - y;
-		painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		if (dy > padding.top) {
+			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		}
 	}
 	// workaround for first line when origin is negative.
 	// @todo: convert workaround in right formula.
 	if (origin.y() > 0.0) {
 		const double y = primaryAlfa - primaryStep;
 		const double dy = plot->height() - y;
-		painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		if (dy > padding.top) {
+			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
+		}
 	}
 }
 

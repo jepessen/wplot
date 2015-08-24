@@ -16,9 +16,9 @@ public:
 	typedef std::shared_ptr<Item2D> Ptr;
 
 	typedef enum {
-		POSITION_WIDGET,
-		POSITION_PLOT,
-		POSITION_SCALED
+		COORDINATE_WIDGET,
+		COORDINATE_PLOT,
+		COORDINATE_SCALED
 	} CoordinateType;
 
 	typedef enum {

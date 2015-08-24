@@ -37,10 +37,16 @@ QPointF Plot2D::getLowerRightCorner() const {
 }
 
 void Plot2D::addGrid(const Grid2D::Ptr &grid) {
+	if (grid == nullptr) {
+		return;
+	}
 	m_gridList.append(grid);
 }
 
 void Plot2D::addGrid(const int &index, const Grid2D::Ptr &grid) {
+	if (grid == nullptr) {
+		return;
+	}
 	if (index > m_gridList.size()) {
 		m_gridList.append(grid);
 	} else if (index < 0) {
@@ -57,6 +63,9 @@ void Plot2D::addGrid(const int &index, const Grid2D::Ptr &grid) {
  * @param[in] graph Graph to be added.
  */
 void Plot2D::addGraph(const Graph::Ptr &graph) {
+	if (graph == nullptr) {
+		return;
+	}
 	m_graphList.append(graph);
 }
 
@@ -69,6 +78,9 @@ void Plot2D::addGraph(const Graph::Ptr &graph) {
  * @param[in] graph Graph to be added.
  */
 void Plot2D::addGraph(const int &index, const Graph::Ptr &graph) {
+	if (graph == nullptr) {
+		return;
+	}
 	if (index > m_graphList.size()) {
 		m_graphList.append(graph);
 	} else if (index < 0) {
@@ -79,10 +91,16 @@ void Plot2D::addGraph(const int &index, const Graph::Ptr &graph) {
 }
 
 void Plot2D::addItem(const Item2D::Ptr &item) {
+	if (item == nullptr) {
+		return;
+	}
 	m_itemList.append(item);
 }
 
 void Plot2D::addItem(const int &index, const Item2D::Ptr &item) {
+	if (item == nullptr) {
+		return;
+	}
 	if (index > m_itemList.size()) {
 		m_itemList.append(item);
 	} else if (index < 0) {

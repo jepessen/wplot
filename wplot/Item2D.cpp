@@ -11,8 +11,8 @@ Item2D::Item2D() :
 	Layer2D(),
 	m_positionAxisType(AXIS_BOTH),
 	m_dimensionsAxisType(AXIS_BOTH),
-	m_positionCoordinateType(POSITION_WIDGET),
-	m_dimensionsCoordinateType(POSITION_WIDGET)
+	m_positionCoordinateType(COORDINATE_WIDGET),
+	m_dimensionsCoordinateType(COORDINATE_WIDGET)
 {}
 
 /**
@@ -103,14 +103,14 @@ QPointF Item2D::getScaledPosition(const double &x, const double &y, const Plot2D
  */
 double Item2D::getScaledPositionX(const double &x, const Plot2D *plot) const {
 	switch(m_positionCoordinateType) {
-	case POSITION_PLOT : {
+	case COORDINATE_PLOT : {
 		return m_positionAxisType == AXIS_Y ? plot->scalePointY(x) : plot->scalePointX(x);
 	} break;
-	case POSITION_SCALED : {
+	case COORDINATE_SCALED : {
 		const int dim = m_positionAxisType == AXIS_Y ? plot->height() : plot->width();
 		return static_cast<double>(dim) * x;
 	} break;
-	case POSITION_WIDGET :
+	case COORDINATE_WIDGET :
 	default : {
 		return x;
 	}
@@ -128,14 +128,14 @@ double Item2D::getScaledPositionX(const double &x, const Plot2D *plot) const {
  */
 double Item2D::getScaledPositionY(const double &y, const Plot2D *plot) const {
 	switch(m_positionCoordinateType) {
-	case POSITION_PLOT : {
+	case COORDINATE_PLOT : {
 		return m_positionAxisType == AXIS_X ? plot->scalePointX(y) : plot->scalePointY(y);
 	} break;
-	case POSITION_SCALED : {
+	case COORDINATE_SCALED : {
 		const int dim = m_positionAxisType == AXIS_X ? plot->width() : plot->height();
 		return static_cast<double>(dim) * y;
 	} break;
-	case POSITION_WIDGET :
+	case COORDINATE_WIDGET :
 	default : {
 		return y;
 	}
@@ -190,15 +190,15 @@ QPointF Item2D::getScaledDimensions(const double &x, const double &y, const Plot
  */
 double Item2D::getScaledDimensionX(const double &x, const Plot2D *plot) const {
 	switch(m_dimensionsCoordinateType) {
-	case POSITION_PLOT : {
+	case COORDINATE_PLOT : {
 		const auto origin = plot->getScreenOrigin();
 		return m_dimensionsAxisType == AXIS_Y ? plot->scalePointY(x) - origin.y() : plot->scalePointX(x) - origin.x();
 	} break;
-	case POSITION_SCALED : {
+	case COORDINATE_SCALED : {
 		const int dim = m_dimensionsAxisType == AXIS_Y ? plot->height() : plot->width();
 		return static_cast<double>(dim) * x;
 	} break;
-	case POSITION_WIDGET :
+	case COORDINATE_WIDGET :
 	default : {
 		return x;
 	}
@@ -216,15 +216,15 @@ double Item2D::getScaledDimensionX(const double &x, const Plot2D *plot) const {
  */
 double Item2D::getScaledDimensionY(const double &y, const Plot2D *plot) const {
 	switch(m_dimensionsCoordinateType) {
-	case POSITION_PLOT : {
+	case COORDINATE_PLOT : {
 		const auto origin = plot->getScreenOrigin();
 		return m_dimensionsAxisType == AXIS_X ? plot->scalePointX(y) - origin.x() : plot->scalePointY(y) - origin.y();
 	} break;
-	case POSITION_SCALED : {
+	case COORDINATE_SCALED : {
 		const int dim = m_dimensionsAxisType == AXIS_X ? plot->width() : plot->height();
 		return static_cast<double>(dim) * y;
 	} break;
-	case POSITION_WIDGET :
+	case COORDINATE_WIDGET :
 	default : {
 		return y;
 	}

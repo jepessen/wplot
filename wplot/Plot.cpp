@@ -14,6 +14,9 @@ Plot::Plot(QWidget *parent) :
 {}
 
 void Plot::setBackground(const Background::Ptr &background) {
+	if (background == nullptr) {
+		return;
+	}
 	m_background = background;
 }
 

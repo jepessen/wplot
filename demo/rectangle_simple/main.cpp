@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-	std::cout << "Simple circle inset demo" << std::endl;
+	std::cout << "Simple rectangle inset demo" << std::endl;
 	QApplication a(argc, argv);
 	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
 	WPlot::Rectangle::Ptr rectangleWidget(new WPlot::Rectangle);

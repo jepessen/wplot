@@ -21,6 +21,7 @@ Background::Background() :
  */
 void Background::setColor(const QColor &color) {
 	m_color = color;
+	m_type = Background::FLAT;
 }
 
 /**
@@ -30,15 +31,7 @@ void Background::setColor(const QColor &color) {
  */
 void Background::setGradient(const QGradient &gradient) {
 	m_gradient = gradient;
-}
-
-/**
- * Set the type of background that should be used.
- *
- * @param[in] type Background type.
- */
-void Background::setType(const Background::Type &type) {
-	m_type = type;
+	m_type = Background::GRADIENT;
 }
 
 /**

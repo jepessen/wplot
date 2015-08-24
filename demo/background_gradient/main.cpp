@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-	std::cout << "Background solid color demo" << std::endl;
+	std::cout << "Background gradient color demo" << std::endl;
 	QApplication a(argc, argv);
 	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
 	WPlot::Background::Ptr background(new WPlot::Background);

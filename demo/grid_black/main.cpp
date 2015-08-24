@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-	std::cout << "Background solid color demo" << std::endl;
+	std::cout << "Basic grid demo" << std::endl;
 	QApplication a(argc, argv);
 	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
 	WPlot::Grid2D::Ptr grid(new WPlot::Grid2D);

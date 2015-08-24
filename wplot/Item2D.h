@@ -32,7 +32,7 @@ public:
 	Item2D();
 	virtual ~Item2D() = default;
 	void setCoordinates(const CoordinateType &type, const AxisType &axisType);
-	void setPositionCoordinates(const CoordinateType &type, const AxisType &axisType);
+	void setPivotCoordinates(const CoordinateType &type, const AxisType &axisType);
 	void setDimensionCoordinates(const CoordinateType &type, const AxisType &axisType);
 	void setPivot(const QPointF &pivot);
 	void setPivot(const double &x, const double &y);

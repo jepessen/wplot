@@ -14,6 +14,7 @@ ScatterGraph2D::ScatterGraph2D() :
 
 void ScatterGraph2D::setItem(const Item2D::Ptr &item) {
 	m_item = item;
+	m_item->setPivotCoordinates(Item2D::COORDINATE_PLOT, Item2D::AXIS_BOTH);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -22,7 +22,7 @@ Item2D::Item2D() :
  * @param[in] axisType Axis type.
  */
 void Item2D::setCoordinates(const Item2D::CoordinateType &type, const Item2D::AxisType &axisType) {
-	setPositionCoordinates(type, axisType);
+	setPivotCoordinates(type, axisType);
 	setDimensionCoordinates(type, axisType);
 }
 
@@ -32,7 +32,7 @@ void Item2D::setCoordinates(const Item2D::CoordinateType &type, const Item2D::Ax
  * @param[in] type Coordiante type.
  * @param[in] axisType Axis type.
  */
-void Item2D::setPositionCoordinates(const Item2D::CoordinateType &type, const Item2D::AxisType &axisType) {
+void Item2D::setPivotCoordinates(const Item2D::CoordinateType &type, const Item2D::AxisType &axisType) {
 	m_positionCoordinateType = type;
 	m_positionAxisType = axisType;
 }

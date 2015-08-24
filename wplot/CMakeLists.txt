@@ -30,3 +30,4 @@ set_target_properties(
     SOVERSION ${project_version}
 )
 set_property(TARGET wplot PROPERTY CXX_STANDARD 11)
+set_property(TARGET wplot PROPERTY CXX_STANDARD_REQUIRED ON)

@@ -17,3 +17,4 @@ message ("Generating WPlot project")
 message ("Setting QT_DIR To ${QT_DIR}")
 
 add_subdirectory (wplot)
+add_subdirectory (demo)

@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.0.0)
 
 project (demo_rectangle_simple)
 
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/export/bin)
 set (CMAKE_PREFIX_PATH ${QT_DIR}/lib/cmake)
 set (CMAKE_AUTOMOC ON)
 set (CMAKE_INCLUDE_CURRENT_DIR ON)

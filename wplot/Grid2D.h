@@ -45,6 +45,8 @@ public:
 public:
 
 	virtual void draw(Plot2D *plot) Q_DECL_OVERRIDE;
+	virtual void drawLines(Plot2D *plot);
+	virtual void drawBoundary(Plot2D *plot);
 
 protected:
 

@@ -289,6 +289,15 @@ void Grid2D::draw(Plot2D *plot) {
 	drawGridBoundary(plot);
 }
 
+void Grid2D::drawLines(Plot2D *plot) {
+	drawGridX(plot);
+	drawGridY(plot);
+}
+
+void Grid2D::drawBoundary(Plot2D *plot) {
+	drawGridBoundary(plot);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // PRIVATE SECTION                                                           //
 ///////////////////////////////////////////////////////////////////////////////

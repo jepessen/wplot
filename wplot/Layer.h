@@ -20,10 +20,16 @@ public:
 
 	Layer();
 	virtual ~Layer() = default;
+	void setDrawingInPaddingArea(const bool &limit);
 
 protected:
 
 	virtual void initPainter(QPainter &painter, Plot* plot);
+	virtual void limitPainterInPaddingArea(QPainter &painter, Plot *plot);
+	
+protected:
+	
+	bool m_usePaddingArea;	
 };
 
 } // namespace WPlot

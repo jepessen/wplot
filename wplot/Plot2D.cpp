@@ -227,6 +227,7 @@ void Plot2D::paintEvent(QPaintEvent * /*event*/) {
 	drawGrids();
 	drawGraphs();
 	drawItems();
+	drawBoundaries();
 }
 
 /**
@@ -248,7 +249,16 @@ void Plot2D::initPainterCoordinates() {
  */
 void Plot2D::drawGrids() {
 	for (auto& it : m_gridList) {
-		it->draw(this);
+		it->drawLines(this);
+	}
+}
+
+/**
+ * Draw grid boundaries.
+ */
+void Plot2D::drawBoundaries() {
+	for (auto& it : m_gridList) {
+		it->drawBoundary(this);
 	}
 }
 

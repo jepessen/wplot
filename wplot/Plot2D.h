@@ -66,6 +66,7 @@ protected:
 
 	virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 	void drawGrids();
+	void drawBoundaries();
 	void drawGraphs();
 	void drawInsets();
 	void drawItems();

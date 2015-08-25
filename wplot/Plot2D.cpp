@@ -56,6 +56,26 @@ void Plot2D::addGrid(const int &index, const Grid2D::Ptr &grid) {
 	}
 }
 
+void Plot2D::addAxes(const Axes2D::Ptr &axes) {
+	if (axes == nullptr) {
+		return;
+	}
+	m_axesList.append(axes);
+}
+
+void Plot2D::addAxes(const int &index, const Axes2D::Ptr &axes) {
+	if (axes == nullptr) {
+		return;
+	}
+	if (index > m_axesList.size()) {
+		m_axesList.append(axes);
+	} else if (index < 0) {
+		m_axesList.prepend(axes);
+	} else {
+		m_axesList.insert(index, axes);
+	}
+}
+
 /**
  * Add a graph to plot. The graph will be set with highest available index, so
  * it will be the last to be drawn.
@@ -226,6 +246,7 @@ void Plot2D::paintEvent(QPaintEvent * /*event*/) {
 	drawBackground();
 	drawGrids();
 	drawGraphs();
+	drawAxes();
 	drawItems();
 	drawBoundaries();
 }
@@ -250,6 +271,12 @@ void Plot2D::initPainterCoordinates() {
 void Plot2D::drawGrids() {
 	for (auto& it : m_gridList) {
 		it->drawLines(this);
+	}
+}
+
+void Plot2D::drawAxes() {
+	for (auto& it : m_axesList) {
+		it->draw(this);
 	}
 }
 

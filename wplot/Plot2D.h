@@ -6,6 +6,7 @@
 #include "wplot/Graph.h"
 #include "wplot/Background.h"
 #include "wplot/Grid2D.h"
+#include "wplot/Axes2D.h"
 #include "wplot/Item2D.h"
 #include <QList>
 #include <QPainter>
@@ -39,6 +40,8 @@ public:
 	QPointF getLowerRightCorner() const;
 	void addGrid(const Grid2D::Ptr &grid);
 	void addGrid(const int &index, const Grid2D::Ptr &grid);
+	void addAxes(const Axes2D::Ptr &axes);
+	void addAxes(const int &index, const Axes2D::Ptr &axes);
 	void addGraph(const Graph::Ptr &graph);
 	void addGraph(const int &index, const Graph::Ptr &graph);
 	void addItem(const Item2D::Ptr &item);
@@ -61,11 +64,13 @@ protected:
 	typedef QList<Graph::Ptr> GraphList;
 	typedef QList<Grid2D::Ptr> GridList;
 	typedef QList<Item2D::Ptr> ItemList;
+	typedef QList<Axes2D::Ptr> AxesList;
 
 protected:
 
 	virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 	void drawGrids();
+	void drawAxes();
 	void drawBoundaries();
 	void drawGraphs();
 	void drawInsets();
@@ -78,6 +83,7 @@ private:
 private:
 
 	GraphList m_graphList;
+	AxesList m_axesList;
 	GridList m_gridList;
 	ItemList m_itemList;
 	CoordinateType m_coordinateType;

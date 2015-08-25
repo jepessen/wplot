@@ -20,8 +20,6 @@ public:
 
 	Grid2D();
 	virtual ~Grid2D() = default;
-	void setRange(const QPointF &upperLeft, const QPointF &lowerRight);
-	void setRange(const double &xMin, const double &xMax, const double &yMin, const double &yMax);
 	void setPrimaryXStep(const double &step);
 	void setSecondaryXStep(const double &step);
 	void setPrimaryYStep(const double &step);

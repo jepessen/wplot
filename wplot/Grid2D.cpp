@@ -61,34 +61,6 @@ Grid2D::Grid2D() :
 }
 
 /**
- * Specify the range of the grid. The range define the \f$X\f$ and \f$Y\f$
- * ranges that must be drawn.
- *
- * @param[in] upperLeft Upper left corner coordinates.
- * @param[in] lowerRight Lower right corner coordinates.
- */
-void Grid2D::setRange(const QPointF &upperLeft, const QPointF &lowerRight) {
-	m_upperLeftCorner = upperLeft;
-	m_lowerRightCorner = lowerRight;
-}
-
-/**
- * Specify the range of the grid. The range define the \f$X\f$ and \f$Y\f$
- * ranges that must be drawn.
- *
- * @param[in] xMin Minimum value for \f$X\f$ axis.
- * @param[in] xMax Maximum value for \f$X\f$ axis.
- * @param[in] yMin Minimum value for \f$Y\f$ axis.
- * @param[in] yMax Maximum value for \f$Y\f$ axis.
- */
-void Grid2D::setRange(const double &xMin, const double &xMax, const double &yMin, const double &yMax) {
-	m_upperLeftCorner.setX(xMin);
-	m_upperLeftCorner.setY(yMax);
-	m_lowerRightCorner.setX(xMax);
-	m_lowerRightCorner.setY(yMin);
-}
-
-/**
  * Set the step for primary grid lines of the \f$X\f$ axis.
  *
  * @param[in] step Step.

@@ -4,6 +4,7 @@
 #include "wplot/WPlotGlobal.h"
 #include "wplot/Layer2D.h"
 #include "wplot/Arrow2D.h"
+#include "wplot/Ticks2D.h"
 #include <QColor>
 #include <QPen>
 #include <memory>
@@ -21,16 +22,7 @@ public:
 
 	Axes2D();
 	virtual ~Axes2D() = default;
-	void setAxisXPrimaryStep(const double &step);
-	void setAxisXSecondaryStep(const double &step);
-	void setAxisYPrimaryStep(const double &step);
-	void setAxisYSecondaryStep(const double &step);
-	void setAxesPrimaryStep(const double &step);
-	void setAxesSecondaryStep(const double &step);
-	void setAxisXPrimaryTickLength(const double &length);
-	void setAxisXSecondaryTickLength(const double &length);
-	void setAxisYPrimaryTickLength(const double &length);
-	void setAxisYSecondaryTickLength(const double &length);
+	void setTicks(const Ticks2D::Ptr &ticks);
 	void setAxisXColor(const QColor &color);
 	void setAxisYColor(const QColor &color);
 	void setAxesColor(const QColor &color);
@@ -59,21 +51,12 @@ public:
 private:
 
 	void drawAxes(Plot2D *plot);
-	void drawAxisXTicks(Plot2D *plot);
-	void drawAxisYTicks(Plot2D *plot);
+	void drawTicks(Plot2D *plot);
 
 private:
 
-	double m_axisXPrimaryStep;
-	double m_axisXSecondaryStep;
-	double m_axisYPrimaryStep;
-	double m_axisYSecondaryStep;
 	double m_axisXWidth;
 	double m_axisYWidth;
-	double m_axisXPrimaryTickLength;
-	double m_axisXSecondaryTickLength;
-	double m_axisYPrimaryTickLength;
-	double m_axisYSecondaryTickLength;
 	QColor m_axisXColor;
 	QColor m_axisYColor;
 	Qt::PenStyle m_axisXStyle;
@@ -83,6 +66,7 @@ private:
 	Arrow2D m_axisX;
 	Arrow2D m_axisY;
 	QPointF m_origin;
+	Ticks2D::Ptr m_ticks;
 };
 
 } // namespace WPlot

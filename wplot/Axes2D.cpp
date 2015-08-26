@@ -10,21 +10,14 @@ namespace WPlot {
 
 Axes2D::Axes2D() :
 	Layer2D(),
-	m_axisXPrimaryStep(1.0),
-	m_axisXSecondaryStep(0.5),
-	m_axisYPrimaryStep(1.0),
-	m_axisYSecondaryStep(0.5),
 	m_axisXWidth(1.0),
 	m_axisYWidth(1.0),
-	m_axisXPrimaryTickLength(double()),
-	m_axisXSecondaryTickLength(double()),
-	m_axisYPrimaryTickLength(double()),
-	m_axisYSecondaryTickLength(double()),
 	m_axisXColor(Qt::black),
 	m_axisYColor(Qt::black),
 	m_axisXStyle(Qt::SolidLine),
 	m_axisYStyle(Qt::SolidLine),
-	m_origin() {
+	m_origin(),
+	m_ticks(nullptr) {
 	m_axisXPen.setColor(m_axisXColor);
 	m_axisXPen.setStyle(m_axisXStyle);
 	m_axisXPen.setWidthF(m_axisXWidth);
@@ -49,46 +42,8 @@ Axes2D::Axes2D() :
 	m_axisY.setArrowLength(15.0);
 }
 
-void Axes2D::setAxisXPrimaryStep(const double &step) {
-	m_axisXPrimaryStep = step;
-}
-
-void Axes2D::setAxisXSecondaryStep(const double &step) {
-	m_axisXSecondaryStep = step;
-}
-
-void Axes2D::setAxisYPrimaryStep(const double &step) {
-	m_axisYPrimaryStep = step;
-}
-
-void Axes2D::setAxisYSecondaryStep(const double &step) {
-	m_axisYSecondaryStep = step;
-}
-
-void Axes2D::setAxesPrimaryStep(const double &step) {
-	setAxisXPrimaryStep(step);
-	setAxisYPrimaryStep(step);
-}
-
-void Axes2D::setAxesSecondaryStep(const double &step) {
-	setAxisXSecondaryStep(step);
-	setAxisYSecondaryStep(step);
-}
-
-void Axes2D::setAxisXPrimaryTickLength(const double &length) {
-	m_axisXPrimaryTickLength = length;
-}
-
-void Axes2D::setAxisXSecondaryTickLength(const double &length) {
-	m_axisXSecondaryTickLength = length;
-}
-
-void Axes2D::setAxisYPrimaryTickLength(const double &length) {
-	m_axisYPrimaryTickLength = length;
-}
-
-void Axes2D::setAxisYSecondaryTickLength(const double &length) {
-	m_axisYSecondaryTickLength = length;
+void Axes2D::setTicks(const Ticks2D::Ptr &ticks) {
+	m_ticks = ticks;
 }
 
 void Axes2D::setAxisXColor(const QColor &color) {
@@ -200,8 +155,9 @@ void Axes2D::setOrigin(const double &x, const double &y) {
 ///////////////////////////////////////////////////////////////////////////////
 
 void Axes2D::draw(Plot2D *plot) {
-	drawAxisXTicks(plot);
-	drawAxisYTicks(plot);
+	//drawAxisXTicks(plot);
+	//drawAxisYTicks(plot);
+	drawTicks(plot);
 	drawAxes(plot);
 }
 
@@ -223,66 +179,12 @@ void Axes2D::drawAxes(Plot2D *plot) {
 	m_axisY.draw(plot);
 }
 
-void Axes2D::drawAxisXTicks(Plot2D *plot) {
-	QPainter painter(plot);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
-	const auto axisOrigin = plot->scalePoint(m_origin);
-	painter.setPen(m_axisXPen);
-	const double secondaryStep = plot->scalePointX(m_axisXSecondaryStep) - origin.x();
-	const double secondaryBeta = fmod(padding.left - origin.x(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.left;
-	for (double x = secondaryAlfa; x < plot->width() - padding.right; x += secondaryStep) {
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXSecondaryTickLength);
+void Axes2D::drawTicks(Plot2D *plot) {
+	if (m_ticks == nullptr) {
+		return;
 	}
-	if (origin.x() > 0.0) {
-		const double x = secondaryAlfa - secondaryStep;
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXSecondaryTickLength);
-	}
-	const double primaryStep = plot->scalePointX(m_axisXPrimaryStep) - origin.x();
-	const double primaryBeta = fmod(padding.left - origin.x(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.left;
-	for (double x = primaryAlfa; x < plot->width() - padding.right; x += primaryStep) {
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXPrimaryTickLength);
-	}
-	if (origin.x() > 0.0) {
-		const double x = primaryAlfa - primaryStep;
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXPrimaryTickLength);
-	}
-}
-
-void Axes2D::drawAxisYTicks(Plot2D *plot) {
-	QPainter painter(plot);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
-	const auto axisOrigin = plot->scalePoint(m_origin);
-	painter.setPen(m_axisYPen);
-	const double secondaryStep = plot->scalePointY(m_axisYSecondaryStep) - origin.y();
-	const double secondaryBeta = fmod(padding.bottom - origin.y(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.bottom;
-	const double ySecondaryStart = plot->height() - secondaryAlfa + m_axisYPrimaryTickLength;
-	const double ySecondaryEnd = padding.top;
-	for (double y = ySecondaryStart; y > ySecondaryEnd; y += secondaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(axisOrigin.x(), dy, axisOrigin.x() + m_axisYSecondaryTickLength, dy);
-		}
-	}
-	const double primaryStep = plot->scalePointY(m_axisYPrimaryStep) - origin.y();
-	const double primaryBeta = fmod(padding.bottom - origin.y(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.bottom;
-	const double yPrimaryStart = plot->height() - primaryAlfa + m_axisYPrimaryTickLength;
-	const double yPrimaryEnd = padding.top;
-	for (double y = yPrimaryStart; y > yPrimaryEnd; y += primaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(axisOrigin.x(), dy, axisOrigin.x() + m_axisYPrimaryTickLength, dy);
-		}
-	}
+	m_ticks->setOrigin(m_origin);
+	m_ticks->draw(plot);
 }
 
 } // namespace WPlot

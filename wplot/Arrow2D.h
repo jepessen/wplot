@@ -38,6 +38,8 @@ public:
 	void setArrowLength(const double &length);
 	void setArrowWidth(const double &width);
 	void setArrowDimensions(const double &width, const double &length);
+	double getArrowLength() const;
+	double getArrowWidth() const;
 
 public:
 

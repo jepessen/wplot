@@ -14,6 +14,10 @@ int main(int argc, char *argv[])
 	axes->setAxisYColor(Qt::blue);
 	axes->setAxisXStyle(Qt::DashDotLine);
 	axes->setAxisXArrowDimensions(30, 40);
+	axes->setAxisXSecondaryTickLength(15);
+	axes->setAxisXPrimaryTickLength(20);
+	axes->setAxisYSecondaryTickLength(20);
+	axes->setAxisYPrimaryTickLength(40);
 	plot2D->setPadding(25, WPlot::Padding::PIXELS);
 	plot2D->setPlotLimits(-3, 7.5, -2, 4.3);
 	plot2D->addAxes(axes);

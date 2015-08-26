@@ -98,6 +98,14 @@ void Arrow2D::setArrowDimensions(const double &width, const double &length) {
 	m_arrowWidth = width;
 }
 
+double Arrow2D::getArrowLength() const {
+	return m_arrowLength;
+}
+
+double Arrow2D::getArrowWidth() const {
+	return m_arrowWidth;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // VIRTUAL PUBLIC SECTION                                                    //
 ///////////////////////////////////////////////////////////////////////////////

@@ -64,6 +64,7 @@ void Rectangle::setLineStyle(const Qt::PenStyle &style) {
 void Rectangle::draw(Plot2D *plot) {
 	QPainter painter(plot);
 	plot->initializePainter(painter);
+	limitPainterInPaddingArea(painter, plot);
 	painter.setPen(m_pen);
 	painter.setBrush(m_brush);
 	const QPointF topLeftPivot = getTopLeftPivot(plot);

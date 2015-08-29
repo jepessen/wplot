@@ -20,8 +20,6 @@ public:
 
 	Grid2D();
 	virtual ~Grid2D() = default;
-	void setRange(const QPointF &upperLeft, const QPointF &lowerRight);
-	void setRange(const double &xMin, const double &xMax, const double &yMin, const double &yMax);
 	void setPrimaryXStep(const double &step);
 	void setSecondaryXStep(const double &step);
 	void setPrimaryYStep(const double &step);
@@ -45,6 +43,8 @@ public:
 public:
 
 	virtual void draw(Plot2D *plot) Q_DECL_OVERRIDE;
+	virtual void drawLines(Plot2D *plot);
+	virtual void drawBoundary(Plot2D *plot);
 
 protected:
 
@@ -80,7 +80,6 @@ private:
 	void drawGridX(Plot2D *plot);
 	void drawGridY(Plot2D *plot);
 	void drawGridBoundary(Plot2D *plot);
-	void drawGridLines(const double &origin, const double &minValue, const double &maxValue, const double &step, const QPainter &painter);
 };
 
 } // namespace WPlot

@@ -22,6 +22,7 @@ void ScatterGraph2D::setItem(const Item2D::Ptr &item) {
 ///////////////////////////////////////////////////////////////////////////////
 
 void ScatterGraph2D::draw(Plot2D *plot) {
+	m_item->setDrawingInPaddingArea(true);
 	for (auto& it : m_data) {
 		m_item->setPivot(it);
 		m_item->draw(plot);

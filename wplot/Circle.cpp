@@ -83,6 +83,7 @@ void Circle::setLineStyle(const Qt::PenStyle &style) {
 void Circle::draw(Plot2D *plot) {
 	QPainter painter(plot);
 	plot->initializePainter(painter);
+	limitPainterInPaddingArea(painter, plot);
 	painter.setPen(m_pen);
 	painter.setBrush(m_brush);
 	const QPointF center = getScaledPosition(m_pivot, plot);

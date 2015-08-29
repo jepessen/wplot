@@ -74,6 +74,9 @@ public:
 	void setXLabelFont(const QFont &font);
 	void setYLabelFont(const QFont &font);
 	void setLabelFont(const QFont &font);
+	void setXLabelDistanceFromAxis(const double &distance);
+	void setYLabelDistanceFromAxis(const double &distance);
+	void setLabelDistanceFromAxis(const double &distance);
 	void setEnableLabels(const bool &flag);
 	void setOrigin(const QPointF &origin);
 	void setOrigin(const double &x, const double &y);
@@ -106,6 +109,8 @@ private:
 	double m_axisXSecondaryTickWidth;
 	double m_axisYPrimaryTickWidth;
 	double m_axisYSecondaryTickWidth;
+	double m_axisXLabelDistance;
+	double m_axisYLabelDistance;
 	Qt::PenStyle m_axisXPrimaryTickStyle;
 	Qt::PenStyle m_axisXSecondaryTickStyle;
 	Qt::PenStyle m_axisYPrimaryTickStyle;

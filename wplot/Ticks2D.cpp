@@ -1,10 +1,19 @@
 #include "wplot/Ticks2D.h"
 #include "wplot/Plot2D.h"
+#include "wplot/Private/LinearTicksCalculator.h"
 #include <QDateTime>
 #include <QTime>
+#include <QFontMetrics>
 #include <cmath>
+#include <iostream>
 
 namespace WPlot {
+
+///////////////////////////////////////////////////////////////////////////////
+// USING SECTION                                                             //
+///////////////////////////////////////////////////////////////////////////////
+
+using Private::LinearTicksCalculator;
 
 ///////////////////////////////////////////////////////////////////////////////
 // STATIC DECLARATION SECTION                                                //
@@ -14,7 +23,7 @@ namespace {
 	const double defaultPrimaryStep(1.0);
 	const double defaultSecondaryStep(0.5);
 	const double defaultWidth(1.0);
-	const double labelWidth(150.0);
+	const double defaultLabelDistance(2.0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -37,6 +46,8 @@ Ticks2D::Ticks2D() :
 	m_axisXSecondaryTickWidth(defaultWidth),
 	m_axisYPrimaryTickWidth(defaultWidth),
 	m_axisYSecondaryTickWidth(defaultWidth),
+	m_axisXLabelDistance(defaultLabelDistance),
+	m_axisYLabelDistance(defaultLabelDistance),
 	m_axisXPrimaryTickStyle(Qt::SolidLine),
 	m_axisXSecondaryTickStyle(Qt::SolidLine),
 	m_axisYPrimaryTickStyle(Qt::SolidLine),
@@ -267,6 +278,19 @@ void Ticks2D::setLabelFont(const QFont &font) {
 	setYLabelFont(font);
 }
 
+void Ticks2D::setXLabelDistanceFromAxis(const double &distance) {
+	m_axisXLabelDistance = distance;
+}
+
+void Ticks2D::setYLabelDistanceFromAxis(const double &distance) {
+	m_axisYLabelDistance = distance;
+}
+
+void Ticks2D::setLabelDistanceFromAxis(const double &distance) {
+	setXLabelDistanceFromAxis(distance);
+	setYLabelDistanceFromAxis(distance);
+}
+
 void Ticks2D::setEnableLabels(const bool &flag) {
 	m_labelEnabled = flag;
 }
@@ -299,139 +323,131 @@ void Ticks2D::draw(Plot2D *plot) {
 
 void Ticks2D::drawAxisXTicks(Plot2D *plot) {
 	QPainter painter(plot);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
+	const auto upperLeftLimits = plot->getUpperLeftCorner();
+	const auto lowerRightLimits = plot->getLowerRightCorner();
+	const auto upperLeftCorner = plot->scalePoint(upperLeftLimits);
+	const auto lowerRightCorner = plot->scalePoint(lowerRightLimits);
 	const auto axisOrigin = plot->scalePoint(m_origin);
 	painter.setPen(m_axisXSecondaryTickPen);
-	const double secondaryStep = plot->scalePointX(m_axisXSecondaryStep) - origin.x();
-	const double secondaryBeta = fmod(padding.left - origin.x(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.left;
-	for (double x = secondaryAlfa; x < plot->width() - padding.right; x += secondaryStep) {
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXSecondaryTickLength);
-	}
-	if (origin.x() > 0.0) {
-		const double x = secondaryAlfa - secondaryStep;
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXSecondaryTickLength);
+	LinearTicksCalculator ticksCalculator;
+	ticksCalculator.setStep(m_axisXSecondaryStep);
+	ticksCalculator.setLimits(upperLeftLimits.x(), lowerRightLimits.x());
+	const auto secondaryTicks = ticksCalculator.getTicks();
+	for (const auto& x : secondaryTicks) {
+		const double scaledX = plot->scalePointX(x);
+		painter.drawLine(scaledX, axisOrigin.y(), scaledX, axisOrigin.y() - m_axisXSecondaryTickLength);
 	}
 	painter.setPen(m_axisXPrimaryTickPen);
-	const double primaryStep = plot->scalePointX(m_axisXPrimaryStep) - origin.x();
-	const double primaryBeta = fmod(padding.left - origin.x(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.left;
-	for (double x = primaryAlfa; x < plot->width() - padding.right; x += primaryStep) {
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXPrimaryTickLength);
-	}
-	if (origin.x() > 0.0) {
-		const double x = primaryAlfa - primaryStep;
-		painter.drawLine(x, axisOrigin.y(), x, axisOrigin.y() - m_axisXPrimaryTickLength);
+	ticksCalculator.setStep(m_axisXPrimaryStep);
+	const auto primaryTicks = ticksCalculator.getTicks();
+	for (const auto& x : primaryTicks) {
+		const double scaledX = plot->scalePointX(x);
+		painter.drawLine(scaledX, axisOrigin.y(), scaledX, axisOrigin.y() - m_axisXPrimaryTickLength);
 	}
 }
 
 void Ticks2D::drawAxisYTicks(Plot2D *plot) {
 	QPainter painter(plot);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
+	const auto upperLeftLimits = plot->getUpperLeftCorner();
+	const auto lowerRightLimits = plot->getLowerRightCorner();
+	const auto upperLeftCorner = plot->scalePoint(upperLeftLimits);
+	const auto lowerRightCorner = plot->scalePoint(lowerRightLimits);
 	const auto axisOrigin = plot->scalePoint(m_origin);
 	painter.setPen(m_axisYSecondaryTickPen);
-	const double secondaryStep = plot->scalePointY(m_axisYSecondaryStep) - origin.y();
-	const double secondaryBeta = fmod(padding.bottom - origin.y(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.bottom;
-	const double ySecondaryStart = plot->height() - secondaryAlfa + m_axisYPrimaryTickLength;
-	const double ySecondaryEnd = padding.top;
-	for (double y = ySecondaryStart; y > ySecondaryEnd; y += secondaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(axisOrigin.x(), dy, axisOrigin.x() + m_axisYSecondaryTickLength, dy);
-		}
+	LinearTicksCalculator ticksCalculator;
+	ticksCalculator.setStep(m_axisYSecondaryStep);
+	ticksCalculator.setLimits(lowerRightLimits.y(), upperLeftLimits.y());
+	const auto secondaryTicks = ticksCalculator.getTicks();
+	for (const auto& y : secondaryTicks) {
+		const double scaledY = plot->scalePointY(y);
+		painter.drawLine(axisOrigin.x(), scaledY, axisOrigin.x() + m_axisYSecondaryTickLength, scaledY);
 	}
 	painter.setPen(m_axisYPrimaryTickPen);
-	const double primaryStep = plot->scalePointY(m_axisYPrimaryStep) - origin.y();
-	const double primaryBeta = fmod(padding.bottom - origin.y(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.bottom;
-	const double yPrimaryStart = plot->height() - primaryAlfa + m_axisYPrimaryTickLength;
-	const double yPrimaryEnd = padding.top;
-	for (double y = yPrimaryStart; y > yPrimaryEnd; y += primaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(axisOrigin.x(), dy, axisOrigin.x() + m_axisYPrimaryTickLength, dy);
-		}
+	ticksCalculator.setStep(m_axisYPrimaryStep);
+	const auto primaryTicks = ticksCalculator.getTicks();
+	for (const auto& y : primaryTicks) {
+		const double scaledY = plot->scalePointY(y);
+		painter.drawLine(axisOrigin.x(), scaledY, axisOrigin.x() + m_axisYPrimaryTickLength, scaledY);
 	}
 }
 
 void Ticks2D::drawAxisXLabels(Plot2D *plot) {
 	QPainter painter(plot);
+	QFontMetrics fontMetrics(m_axisXFont);
 	painter.setFont(m_axisXFont);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
+	const auto upperLeftLimits = plot->getUpperLeftCorner();
+	const auto lowerRightLimits = plot->getLowerRightCorner();
+	const auto upperLeftCorner = plot->scalePoint(upperLeftLimits);
+	const auto lowerRightCorner = plot->scalePoint(lowerRightLimits);
 	const auto axisOrigin = plot->scalePoint(m_origin);
 	painter.setPen(m_axisXSecondaryTickPen);
-	const double secondaryStep = plot->scalePointX(m_axisXSecondaryStep) - origin.x();
-	const double secondaryBeta = fmod(padding.left - origin.x(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.left;
-	const double xSecondaryStart = secondaryAlfa - secondaryStep;
-	const double xSecondaryEnd = plot->width() - padding.right;
-	for (double x = xSecondaryStart; x < xSecondaryEnd; x += secondaryStep) {
-		QRectF rect(x - labelWidth * 0.5, axisOrigin.y(), labelWidth, m_axisXFont.pixelSize());
-		const double multiplier = (x - origin.x()) / secondaryStep;
-		const QString labelText(getLabelText(m_axisXSecondaryStep * round(multiplier)));
+	LinearTicksCalculator ticksCalculator;
+	ticksCalculator.setStep(m_axisXSecondaryStep);
+	ticksCalculator.setLimits(upperLeftLimits.x(), lowerRightLimits.x());
+	QRectF rect;
+	const auto secondaryTicks = ticksCalculator.getTicks();
+	for (const auto& x : secondaryTicks) {
+		const double scaledX = plot->scalePointX(x);
+		const QString labelText(getLabelText(x));
+		auto s = fontMetrics.size(Qt::TextSingleLine, labelText);
+		rect.setLeft(scaledX - s.width() * 0.5);
+		rect.setTop(axisOrigin.y() + m_axisXLabelDistance);
+		rect.setWidth(s.width());
+		rect.setHeight(s.height());
 		painter.drawText(rect, labelText, m_axisXTextOptions);
 	}
 	painter.setPen(m_axisXPrimaryTickPen);
-	const double primaryStep = plot->scalePointX(m_axisXPrimaryStep) - origin.x();
-	const double primaryBeta = fmod(padding.left - origin.x(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.left;
-	const double xPrimaryStart = primaryAlfa;
-	const double xPrimaryEnd = plot->width() - padding.right;
-	for (double x = xPrimaryStart; x < xPrimaryEnd; x += primaryStep) {
-		QRectF rect(x - labelWidth * 0.5, axisOrigin.y(), labelWidth, m_axisXFont.pixelSize());
-		const double multiplier = (x - origin.x()) / primaryStep;
-		const QString labelText(getLabelText(m_axisXPrimaryStep * round(multiplier)));
+	ticksCalculator.setStep(m_axisXPrimaryStep);
+	const auto primaryTicks = ticksCalculator.getTicks();
+	for (const auto& x : primaryTicks) {
+		const double scaledX = plot->scalePointX(x);
+		const QString labelText(getLabelText(x));
+		auto s = fontMetrics.size(Qt::TextSingleLine, labelText);
+		rect.setLeft(scaledX - s.width() * 0.5);
+		rect.setTop(axisOrigin.y() + m_axisXLabelDistance);
+		rect.setWidth(s.width());
+		rect.setHeight(s.height());
 		painter.drawText(rect, labelText, m_axisXTextOptions);
 	}
 }
 
 void Ticks2D::drawAxisYLabels(Plot2D *plot) {
 	QPainter painter(plot);
+	QFontMetrics fontMetrics(m_axisYFont);
 	painter.setFont(m_axisYFont);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
+	const auto upperLeftLimits = plot->getUpperLeftCorner();
+	const auto lowerRightLimits = plot->getLowerRightCorner();
+	const auto upperLeftCorner = plot->scalePoint(upperLeftLimits);
+	const auto lowerRightCorner = plot->scalePoint(lowerRightLimits);
 	const auto axisOrigin = plot->scalePoint(m_origin);
 	painter.setPen(m_axisYSecondaryTickPen);
-	const double secondaryStep = plot->scalePointY(m_axisYSecondaryStep) - origin.y();
-	const double secondaryBeta = fmod(padding.bottom - origin.y(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.bottom;
-	const double ySecondaryStart = plot->height() - secondaryAlfa + m_axisYPrimaryTickLength;
-	const double ySecondaryEnd = padding.top;
-	for (double y = ySecondaryStart; y > ySecondaryEnd; y += secondaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			QRectF rect(axisOrigin.x() - labelWidth - 3, dy - m_axisYFont.pixelSize(), labelWidth, m_axisYFont.pixelSize());
-			const double multiplier = (dy - origin.y()) / secondaryStep;
-			const QString labelText(getLabelText(m_axisYSecondaryStep * round(multiplier)));
-			painter.drawText(rect, labelText, m_axisYTextOptions);
-		}
+	LinearTicksCalculator ticksCalculator;
+	ticksCalculator.setStep(m_axisYSecondaryStep);
+	ticksCalculator.setLimits(lowerRightLimits.y(), upperLeftLimits.y());
+	const auto secondaryTicks = ticksCalculator.getTicks();
+	QRectF rect;
+	for (const auto& y : secondaryTicks) {
+		const double scaledY = plot->scalePointY(y);
+		const QString labelText(getLabelText(y));
+		auto s = fontMetrics.size(Qt::TextSingleLine, labelText);
+		rect.setLeft(axisOrigin.x() - s.width() - 5 - m_axisYLabelDistance);
+		rect.setTop(scaledY - s.height() * 0.5);
+		rect.setWidth(s.width() + 5);
+		rect.setHeight(s.height());
+		painter.drawText(rect, labelText, m_axisYTextOptions);
 	}
 	painter.setPen(m_axisYPrimaryTickPen);
-	const double primaryStep = plot->scalePointY(m_axisYPrimaryStep) - origin.y();
-	const double primaryBeta = fmod(padding.bottom - origin.y(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.bottom;
-	const double yPrimaryStart = plot->height() - primaryAlfa + m_axisYPrimaryTickLength;
-	const double yPrimaryEnd = padding.top;
-	for (double y = yPrimaryStart; y > yPrimaryEnd; y += primaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			QRectF rect(axisOrigin.x() - labelWidth - 3, dy - m_axisYFont.pixelSize(), labelWidth, m_axisYFont.pixelSize());
-			const double multiplier = (dy - origin.y()) / primaryStep;
-			const QString labelText(getLabelText(m_axisYPrimaryStep * round(multiplier)));
-			painter.drawText(rect, labelText, m_axisYTextOptions);
-		}
+	ticksCalculator.setStep(m_axisYPrimaryStep);
+	const auto primaryTicks = ticksCalculator.getTicks();
+	for (const auto& y : primaryTicks) {
+		const double scaledY = plot->scalePointY(y);
+		const QString labelText(getLabelText(y));
+		auto s = fontMetrics.size(Qt::TextSingleLine, labelText);
+		rect.setLeft(axisOrigin.x() - s.width() - 5 - m_axisYLabelDistance);
+		rect.setTop(scaledY - s.height() * 0.5);
+		rect.setWidth(s.width() + 5);
+		rect.setHeight(s.height());
+		painter.drawText(rect, labelText, m_axisYTextOptions);
 	}
 }
 
@@ -460,12 +476,3 @@ QString Ticks2D::getLabelText(const double &value) const {
 }
 
 } // namespace WPlot
-
-
-typedef enum {
-		FORMAT_INTEGER,
-		FORMAT_FLOAT,
-		FORMAT_DATE,
-		FORMAT_TIME,
-		FORMAT_DATETIME
-	} FormatType;

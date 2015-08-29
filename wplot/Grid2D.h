@@ -80,7 +80,6 @@ private:
 	void drawGridX(Plot2D *plot);
 	void drawGridY(Plot2D *plot);
 	void drawGridBoundary(Plot2D *plot);
-	void drawGridLines(const double &origin, const double &minValue, const double &maxValue, const double &step, const QPainter &painter);
 };
 
 } // namespace WPlot

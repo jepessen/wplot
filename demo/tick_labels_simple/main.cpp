@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	ticks->setEnableLabels(true);
 	axes->setTicks(ticks);
 	plot2D->setPadding(25, WPlot::Padding::PIXELS);
-	plot2D->setPlotLimits(-3, 7.5, -2, 4.3);
+	plot2D->setPlotLimits(-3.3, 7.5, -2, 4.3);
 	plot2D->addAxes(axes);
 	plot2D->show();
 	return a.exec();

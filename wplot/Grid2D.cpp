@@ -1,9 +1,16 @@
 #include "wplot/Grid2D.h"
 #include "wplot/Plot2D.h"
+#include "wplot/Private/LinearTicksCalculator.h"
 #include <QPainter>
 #include <QDebug>
 
 namespace WPlot {
+
+///////////////////////////////////////////////////////////////////////////////
+// USING SECTION                                                             //
+///////////////////////////////////////////////////////////////////////////////
+
+using Private::LinearTicksCalculator;
 
 ///////////////////////////////////////////////////////////////////////////////
 // PUBLIC SECTION                                                            //
@@ -281,35 +288,25 @@ void Grid2D::drawBoundary(Plot2D *plot) {
  */
 void Grid2D::drawGridX(Plot2D *plot) {
 	QPainter painter(plot);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
+	const auto upperLeftLimits = plot->getUpperLeftCorner();
+	const auto lowerRightLimits = plot->getLowerRightCorner();
+	const auto upperLeftCorner = plot->scalePoint(upperLeftLimits);
+	const auto lowerRightCorner = plot->scalePoint(lowerRightLimits);
 	painter.setPen(m_secondaryXPen);
-	const double secondaryStep = plot->scalePointX(m_secondaryXStep) - origin.x();
-	const double secondaryBeta = fmod(padding.left - origin.x(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.left;
-	for (double x = secondaryAlfa; x < plot->width() - padding.right; x += secondaryStep) {
-		painter.drawLine(x, upperLeftCorner.y(), x, lowerRightCorner.y());
-	}
-	// workaround for first line when origin is negative.
-	// @todo: convert workaround in right formula.
-	if (origin.x() > 0.0) {
-		const double x = secondaryAlfa - secondaryStep;
-		painter.drawLine(x, upperLeftCorner.y(), x, lowerRightCorner.y());
+	LinearTicksCalculator ticksCalculator;
+	ticksCalculator.setStep(m_secondaryXStep);
+	ticksCalculator.setLimits(upperLeftLimits.x(), lowerRightLimits.x());
+	const auto secondaryTicks = ticksCalculator.getTicks();
+	for (const auto& x : secondaryTicks) {
+		const double scaledX = plot->scalePointX(x);
+		painter.drawLine(scaledX, upperLeftCorner.y(), scaledX, lowerRightCorner.y());
 	}
 	painter.setPen(m_primaryXPen);
-	const double primaryStep = plot->scalePointX(m_primaryXStep) - origin.x();
-	const double primaryBeta = fmod(padding.left - origin.x(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.left;
-	for (double x = primaryAlfa; x < plot->width() - padding.right; x += primaryStep) {
-		painter.drawLine(x, upperLeftCorner.y(), x, lowerRightCorner.y());
-	}
-	// workaround for first line when origin is negative.
-	// @todo: convert workaround in right formula.
-	if (origin.x() > 0.0) {
-		const double x = primaryAlfa - primaryStep;
-		painter.drawLine(x, upperLeftCorner.y(), x, lowerRightCorner.y());
+	ticksCalculator.setStep(m_primaryXStep);
+	const auto primaryTicks = ticksCalculator.getTicks();
+	for (const auto& x : primaryTicks) {
+		const double scaledX = plot->scalePointX(x);
+		painter.drawLine(scaledX, upperLeftCorner.y(), scaledX, lowerRightCorner.y());
 	}
 }
 
@@ -320,47 +317,25 @@ void Grid2D::drawGridX(Plot2D *plot) {
  */
 void Grid2D::drawGridY(Plot2D *plot) {
 	QPainter painter(plot);
-	const auto upperLeftCorner = plot->scalePoint(plot->getUpperLeftCorner());
-	const auto lowerRightCorner = plot->scalePoint(plot->getLowerRightCorner());
-	const auto padding = plot->getPixelPadding();
-	const auto origin = plot->getScreenOrigin();
+	const auto upperLeftLimits = plot->getUpperLeftCorner();
+	const auto lowerRightLimits = plot->getLowerRightCorner();
+	const auto upperLeftCorner = plot->scalePoint(upperLeftLimits);
+	const auto lowerRightCorner = plot->scalePoint(lowerRightLimits);
 	painter.setPen(m_secondaryYPen);
-	const double secondaryStep = plot->scalePointY(m_secondaryYStep) - origin.y();
-	const double secondaryBeta = fmod(padding.bottom - origin.y(), secondaryStep);
-	const double secondaryAlfa = secondaryStep - secondaryBeta + padding.bottom;
-	for (double y = plot->height() - secondaryAlfa; y > padding.top; y += secondaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
-		}
-	}
-	// workaround for first line when origin is negative.
-	// @todo: convert workaround in right formula.
-	if (origin.y() > 0.0) {
-		const double y = secondaryAlfa - secondaryStep;
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
-		}
+	LinearTicksCalculator ticksCalculator;
+	ticksCalculator.setStep(m_secondaryYStep);
+	ticksCalculator.setLimits(lowerRightLimits.y(), upperLeftLimits.y());
+	const auto secondaryTicks = ticksCalculator.getTicks();
+	for (const auto& y : secondaryTicks) {
+		const double scaledY = plot->scalePointY(y);
+		painter.drawLine(upperLeftCorner.x(), scaledY, lowerRightCorner.x(), scaledY);
 	}
 	painter.setPen(m_primaryYPen);
-	const double primaryStep = plot->scalePointY(m_primaryYStep) - origin.y();
-	const double primaryBeta = fmod(padding.bottom - origin.y(), primaryStep);
-	const double primaryAlfa = primaryStep - primaryBeta + padding.bottom;
-	for (double y = plot->height() - primaryAlfa; y > padding.top; y += primaryStep) {
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
-		}
-	}
-	// workaround for first line when origin is negative.
-	// @todo: convert workaround in right formula.
-	if (origin.y() > 0.0) {
-		const double y = primaryAlfa - primaryStep;
-		const double dy = plot->height() - y;
-		if (dy > padding.top) {
-			painter.drawLine(upperLeftCorner.x(), dy, lowerRightCorner.x(), dy);
-		}
+	ticksCalculator.setStep(m_primaryYStep);
+	const auto primaryTicks = ticksCalculator.getTicks();
+	for (const auto& y : primaryTicks) {
+		const double scaledY = plot->scalePointY(y);
+		painter.drawLine(upperLeftCorner.x(), scaledY, lowerRightCorner.x(), scaledY);
 	}
 }
 
@@ -377,10 +352,6 @@ void Grid2D::drawGridBoundary(Plot2D *plot) {
 	const double w = lowerRightCorner.x() - upperLeftCorner.x();
 	const double h = upperLeftCorner.y() - lowerRightCorner.y();
 	painter.drawRect(upperLeftCorner.x(), lowerRightCorner.y(), w, h);
-}
-
-void Grid2D::drawGridLines(const double &origin, const double &minValue, const double &maxValue, const double &step, const QPainter &painter) {
-
 }
 
 } // namespace WPlot

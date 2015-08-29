@@ -23,7 +23,7 @@ message ("Setting QT_DIR To ${QT_DIR}")
 message ("CMAKE_PREFIX_PATH set to ${CMAKE_PREFIX_PATH}")
 find_package (Qt5Widgets REQUIRED)
 include_directories (${CMAKE_SOURCE_DIR} ${Qt5Widgets_INCLUDE_DIRS})
-file (GLOB WPLOT_SOURCES "*.cpp")
+file (GLOB_RECURSE WPLOT_SOURCES "*.cpp")
 file (GLOB WPLOT_PUBLIC_HEADERS "*.h")
 file (COPY ${WPLOT_PUBLIC_HEADERS} DESTINATION ${INCLUDE_EXPORT_DIRECTORY})
 

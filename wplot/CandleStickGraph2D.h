@@ -1,31 +1,26 @@
-#ifndef WPLOT_CANDLESTICK2D_H_
-#define WPLOT_CANDLESTICK2D_H_
+#ifndef WPLOT_CANDLESTICKGRAPH2D_H_
+#define WPLOT_CANDLESTICKGRAPH2D_H_
 
 #include "wplot/WPlotGlobal.h"
-#include "wplot/FinancialItem2D.h"
-#include "wplot/OHLC.h"
-#include <QPointF>
-#include <QColor>
-#include <QPen>
-#include <QBrush>
+#include "wplot/FinancialGraph2D.h"
+#include "wplot/Item2D.h"
+#include "wplot/CandleStick2D.h"
 #include <memory>
 
 namespace WPlot {
 
 class Plot2D;
 
-class WPLOTSHARED_EXPORT CandleStick2D : public FinancialItem2D
+class WPLOTSHARED_EXPORT CandleStickGraph2D : public FinancialGraph2D
 {
 
 public:
 
-	/** Shared pointer to the class. */
-	typedef std::shared_ptr<CandleStick2D> Ptr;
+	typedef std::shared_ptr<CandleStickGraph2D> Ptr;
 
 public:
-
-	CandleStick2D();
-	virtual ~CandleStick2D() = default;
+	CandleStickGraph2D();
+	virtual ~CandleStickGraph2D() = default;
 	void setBarPositiveColor(const QColor &color);
 	void setBarNegativeColor(const QColor &color);
 	void setBarColor(const QColor &positive, const QColor &negative);
@@ -40,27 +35,20 @@ public:
 
 private:
 
-	double m_lineWidth;
-	double m_barWidth;
-	QColor m_lineColor;
-	QColor m_positiveColor;
-	QColor m_negativeColor;
-	Qt::PenStyle m_lineStyle;
-	QPen m_pen;
-	QBrush m_brush;
+	CandleStick2D m_candlestick;
 };
 
 } // namespace WPlot
 
-#endif // WPLOT_CANDLESTICK2D_H_
+#endif // WPLOT_CANDLESTICKGRAPH2D_H_
 
 ///////////////////////////////////////////////////////////////////////////////
 // DOCUMENTATION                                                             //
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * @class WPlot::Circle
+ * @class WPlot::ScatterGraph2D
  *
- * This class allows to plot a circle inside the plot. The circle has a fixed
- * radius and the pivot represent the center.
+ * This class allows to define a graph in which a set of items are drawn at
+ * data position. It's a scatter plot.
  */

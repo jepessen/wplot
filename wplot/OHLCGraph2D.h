@@ -1,30 +1,26 @@
-#ifndef WPLOT_OHLCBAR2D_H_
-#define WPLOT_OHLCBAR2D_H_
+#ifndef WPLOT_OHLCGRAPH2D_H_
+#define WPLOT_OHLCGRAPH2D_H_
 
 #include "wplot/WPlotGlobal.h"
-#include "wplot/FinancialItem2D.h"
-#include "wplot/OHLC.h"
-#include <QPointF>
-#include <QColor>
-#include <QPen>
+#include "wplot/FinancialGraph2D.h"
+#include "wplot/Item2D.h"
+#include "wplot/OHLCBar2D.h"
 #include <memory>
 
 namespace WPlot {
 
 class Plot2D;
 
-class WPLOTSHARED_EXPORT OHLCBar2D : public FinancialItem2D
+class WPLOTSHARED_EXPORT OHLCGraph2D : public FinancialGraph2D
 {
 
 public:
 
-	/** Shared pointer to the class. */
-	typedef std::shared_ptr<OHLCBar2D> Ptr;
+	typedef std::shared_ptr<OHLCGraph2D> Ptr;
 
 public:
-
-	OHLCBar2D();
-	virtual ~OHLCBar2D() = default;
+	OHLCGraph2D();
+	virtual ~OHLCGraph2D() = default;
 	void setPositiveColor(const QColor &color);
 	void setNegativeColor(const QColor &color);
 	void setColor(const QColor &positive, const QColor &negative);
@@ -38,26 +34,20 @@ public:
 
 private:
 
-	double m_lineWidth;
-	double m_tickWidth;
-	QColor m_lineColor;
-	QColor m_positiveColor;
-	QColor m_negativeColor;
-	Qt::PenStyle m_lineStyle;
-	QPen m_pen;
+	OHLCBar2D m_ohlcBar;
 };
 
 } // namespace WPlot
 
-#endif // WPLOT_OHLCBAR2D_H_
+#endif // WPLOT_OHLCGRAPH2D_H_
 
 ///////////////////////////////////////////////////////////////////////////////
 // DOCUMENTATION                                                             //
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * @class WPlot::OHLCBar2D
+ * @class WPlot::ScatterGraph2D
  *
- * This class allows to plot a circle inside the plot. The circle has a fixed
- * radius and the pivot represent the center.
+ * This class allows to define a graph in which a set of items are drawn at
+ * data position. It's a scatter plot.
  */

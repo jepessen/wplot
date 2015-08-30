@@ -1,0 +1,18 @@
+v.0.1.0:
+
+First release:
+
+- Plot2D added in order to show 2D graphs.
+- LineGraph2D added. This allows to show line graph.
+- ScatterGraph2D added. This allows to show scatter graph.
+- Circle Item added. Circles can be drawn.
+- Rectangle Item added. Rectangles can be drawn.
+
+v0.2.0
+
+GitHub #2: Doxyfile created.
+GitHub #1: Padding area can be set.
+GitHub #6: Axes2D can be created and inserted into plot:
+GitHub #5: Added Text2D that can be drawn.
+GitHub #11: Added ticks to axes.
+GitHub #7: Numeric labels are added to ticks.

@@ -47,8 +47,10 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * @class WPlot::ScatterGraph2D
+ * @class WPlot::CandleStickGraph2D
  *
- * This class allows to define a graph in which a set of items are drawn at
- * data position. It's a scatter plot.
+ * This class allows to define a graph in which a set of candlestick are drawn
+ * in order to represent set financial data.
+ *
+ * @image html candlestick_plot.svg "Candlestick graph."
  */

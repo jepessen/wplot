@@ -59,8 +59,16 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * @class WPlot::Circle
+ * @class WPlot::CandleStick2D
  *
- * This class allows to plot a circle inside the plot. The circle has a fixed
- * radius and the pivot represent the center.
+ * a Candlestick is a graphic item used in financial graphs used to show
+ * OHLC (Open, High, Low, Close) data.
+ *
+ * The item is shown in the image. It's formed by a vertical line and a
+ * rectangle. Line extrema defines high and low values, while upper and
+ * lower rectangle edges represent open and close values. The open value can
+ * be lower or higher than close value. In one case the item will have a
+ * defined color, in the other case another color.
+ *
+ * @image html candlestick.svg "Candlestick"
  */

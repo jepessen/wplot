@@ -92,6 +92,9 @@ void Plot::paintEvent(QPaintEvent * /*event*/) {
 	drawBackground();
 }
 
+/**
+ * Draw the background if set.
+ */
 void Plot::drawBackground() {
 	if (nullptr != m_background) {
 		m_background->draw(this);

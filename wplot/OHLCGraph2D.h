@@ -46,8 +46,10 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * @class WPlot::ScatterGraph2D
+ * @class WPlot::OHLCGraph2D
  *
- * This class allows to define a graph in which a set of items are drawn at
- * data position. It's a scatter plot.
+ * This class allows to define a graph in which a set of ohlc bars are drawn
+ * in order to represent set financial data.
+ *
+ * @image html ohlcbar_plot.svg "OHLC graph."
  */

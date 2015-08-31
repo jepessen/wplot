@@ -22,29 +22,62 @@ OHLCBar2D::OHLCBar2D() :
 	m_pen.setStyle(m_lineStyle);
 }
 
+/**
+ * Set the OHLC bar color when the close value is higher than the open
+ * value.
+ *
+ * @param[in] color Color.
+ */
 void OHLCBar2D::setPositiveColor(const QColor &color) {
 	m_positiveColor = color;
 }
 
+/**
+ * Set the OHLC bar color when the close value is lower than the open
+ * value.
+ *
+ * @param[in] color Color.
+ */
 void OHLCBar2D::setNegativeColor(const QColor &color) {
 	m_negativeColor = color;
 }
 
+/**
+ * Set OHLC bar colors that must be set when positive and when negative.
+ *
+ * @param[in] positive Color used when candlestick is positive.
+ * @param[in] negative Color used when candlestick is negative.
+ */
 void OHLCBar2D::setColor(const QColor &positive, const QColor &negative) {
 	setPositiveColor(positive);
 	setNegativeColor(negative);
 }
 
+/**
+ * Set line width.
+ *
+ * @param[in] width Width.
+ */
 void OHLCBar2D::setLineWidth(const double &width) {
 	m_lineWidth = width;
 	m_pen.setWidthF(width);
 }
 
+/**
+ * Set the style of line.
+ *
+ * @param[in] style Style.
+ */
 void OHLCBar2D::setStyle(const Qt::PenStyle &style) {
 	m_lineStyle = style;
 	m_pen.setStyle(style);
 }
 
+/**
+ * Set width of ticks.
+ *
+ * @param[in] width Width.
+ */
 void OHLCBar2D::setTickWidth(const double &width) {
 	m_tickWidth = width;
 }
@@ -54,9 +87,9 @@ void OHLCBar2D::setTickWidth(const double &width) {
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Draw the circle in specified plot.
+ * Draw the OHLC bar in specified plot.
  *
- * @param[in] plot Plot where circle must be drawn.
+ * @param[in] plot Plot where item must be drawn.
  */
 void OHLCBar2D::draw(Plot2D *plot) {
 	QPainter painter(plot);

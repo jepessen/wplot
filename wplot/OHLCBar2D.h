@@ -58,6 +58,13 @@ private:
 /**
  * @class WPlot::OHLCBar2D
  *
- * This class allows to plot a circle inside the plot. The circle has a fixed
- * radius and the pivot represent the center.
+ * a OHLC bar is a graphic item used in financial graphs used to show
+ * OHLC (Open, High, Low, Close) data.
+ *
+ * The item is shown in the image. It's formed by a vertical line and two ticks,
+ * one on the left side and one to the right side.
+ * Vertical line extrema show high and low OHLC values, while the left and right
+ * ticks are open and close values respectively.
+ *
+ * @image html ohlcbar.svg "OHLC bar"
  */

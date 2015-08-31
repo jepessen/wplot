@@ -23,34 +23,72 @@ CandleStick2D::CandleStick2D() :
 	m_brush.setStyle(Qt::SolidPattern);
 }
 
+/**
+ * Set the candlestick color when the close value is higher than the open
+ * value.
+ *
+ * @param[in] color Color.
+ */
 void CandleStick2D::setBarPositiveColor(const QColor &color) {
 	m_positiveColor = color;
 }
 
+/**
+ * Set the candlestick color when the close value is lower than the open
+ * value.
+ *
+ * @param[in] color Color.
+ */
 void CandleStick2D::setBarNegativeColor(const QColor &color) {
 	m_negativeColor = color;
 }
 
+/**
+ * Set candlestick colors that must be set when positive and when negative.
+ *
+ * @param[in] positive Color used when candlestick is positive.
+ * @param[in] negative Color used when candlestick is negative.
+ */
 void CandleStick2D::setBarColor(const QColor &positive, const QColor &negative) {
 	setBarPositiveColor(positive);
 	setBarNegativeColor(negative);
 }
 
+/**
+ * Set the color of candlestick lines.
+ *
+ * @param[in] color Color.
+ */
 void CandleStick2D::setLineColor(const QColor &color) {
 	m_lineColor = color;
 	m_pen.setColor(color);
 }
 
+/**
+ * Set the width of candlestick lines.
+ *
+ * @param[in] width Width.
+ */
 void CandleStick2D::setLineWidth(const double &width) {
 	m_lineWidth = width;
 	m_pen.setWidthF(width);
 }
 
+/**
+ * Set the style of candlestick lines.
+ *
+ * @param[in] style Style.
+ */
 void CandleStick2D::setLineStyle(const Qt::PenStyle &style) {
 	m_lineStyle = style;
 	m_pen.setStyle(style);
 }
 
+/**
+ * Set the width of the candlestick bar.
+ *
+ * @param[in] width Width.
+ */
 void CandleStick2D::setBarWidth(const double &width) {
 	m_barWidth = width;
 }
@@ -60,9 +98,9 @@ void CandleStick2D::setBarWidth(const double &width) {
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Draw the circle in specified plot.
+ * Draw the candlestick in specified plot.
  *
- * @param[in] plot Plot where circle must be drawn.
+ * @param[in] plot Plot where candlestick must be drawn.
  */
 void CandleStick2D::draw(Plot2D *plot) {
 	QPainter painter(plot);

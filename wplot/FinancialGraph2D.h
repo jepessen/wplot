@@ -50,7 +50,7 @@ protected:
 /**
  * @class WPlot::FinancialGraph2D
  *
- * This class is a base class for all plots that must be set with scalar values.
- *
- * A scalar value is a single \f$\left(x,y\right)\f$ coordinate.
+ * This class is a base class for all plots that must be set with financial
+ * values (OHLC). The base class allows to set data that must be drawn in
+ * derived classes.
  */

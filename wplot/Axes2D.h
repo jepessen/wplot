@@ -73,8 +73,22 @@ private:
 
 #endif // WPLOT_AXES2D_H_
 
+///////////////////////////////////////////////////////////////////////////////
+// DOCUMENTATION                                                             //
+///////////////////////////////////////////////////////////////////////////////
+
 /**
  * @class WPlot::Axes2D
  *
- * This class allows to draw a 2D Axes inside the plot.
+ * This class allow to draw axes in a 2D plot.
+ *
+ * Axes are plotted along @f$X@f$ and @f$Y@f$ axes and the origin can be set:
+ * it can be something different than origin @f$\left(0,0\right)@f$. It's
+ * possible to set properties for both axis or specify different ones for
+ * @f$X@f$ and @f$Y@f$ directions.
+ *
+ * Axes are plot along all drawing area, that's the entire widget without
+ * padding borders.
+ *
+ * @image html axes.svg "Axes in a plot."
  */

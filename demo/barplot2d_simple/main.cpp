@@ -13,12 +13,12 @@ int main(int argc, char *argv[])
 	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
 	WPlot::BarGraph2D::Ptr barGraph(new WPlot::BarGraph2D);
 	WPlot::Grid2D::Ptr grid(new WPlot::Grid2D);
-	for (double x = 0.0; x < 8.0; x += 0.2) {
+	for (double x = 0.0; x < 8.0; x += 0.5) {
 		barGraph->appendPoint(x, sin(x));
 	}
-	barGraph->setBarWidth(10);
+	barGraph->setBarWidth(30);
 	plot2D->setPadding(25, WPlot::Padding::PIXELS);
-	plot2D->setPlotLimits(-1, 8.5, -0.4, 1.0);
+	plot2D->setPlotLimits(-1, 8.5, -1.2, 1.2);
 	plot2D->addGraph(barGraph);
 	plot2D->addGrid(grid);
 	plot2D->show();

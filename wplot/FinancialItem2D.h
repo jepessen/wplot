@@ -47,6 +47,6 @@ protected:
 /**
  * @class WPlot::FinancialItem2D
  *
- * This class allows to plot a circle inside the plot. The circle has a fixed
- * radius and the pivot represent the center.
+ * This is a base class used to define properties of all financial item. A
+ * financial item shows OHLC data (Open, High, Low, Close).
  */

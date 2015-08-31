@@ -13,18 +13,23 @@ class WPLOTSHARED_EXPORT Item2D : public Layer2D
 {
 public:
 
+	/** Pointer to this class. */
 	typedef std::shared_ptr<Item2D> Ptr;
 
+	/** Type of coordinate that can be used. */
 	typedef enum {
-		COORDINATE_WIDGET,
-		COORDINATE_PLOT,
-		COORDINATE_SCALED
+		COORDINATE_WIDGET, //!< Original widget coordinates.
+		COORDINATE_PLOT,   //!< Plot coordinates.
+		COORDINATE_SCALED  //!< Scaled coordinates (from 0 to 1).
 	} CoordinateType;
 
+	/**
+	 * Axis direction for coordinate type.
+	 */
 	typedef enum {
-		AXIS_X,
-		AXIS_Y,
-		AXIS_BOTH
+		AXIS_X,   //!< Scaling of X axis for both coordinates.
+		AXIS_Y,   //!< Scaling of Y axis for both coordinates.
+		AXIS_BOTH //!< Every axis is indipendently scaled.
 	} AxisType;
 
 public:

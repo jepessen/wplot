@@ -1,0 +1,15 @@
+/**
+ * @mainpage WPlot v0.3.0
+ *
+ * @author Daniele Lupo
+ *
+ * @section sec_introduction Introduction
+ *
+ * The main purpose of this library is to draw plots using the
+ * <a href="https://www.qt.io/">Qt framework</a>.
+ *
+ * The library allows to create a 2D plot, and add to this plot
+ * different graph types, like scatter graph or line graph. It's also possibile
+ * to add items above the plot, like rectangles, arrows and text in order to
+ * make a more clear plot.
+ */

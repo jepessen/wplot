@@ -58,8 +58,8 @@ std::ostream& operator<<(std::ostream& ss, const WPlot::OHLC &ohlc);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * @class WPlot::OHLCBar2D
+ * @class WPlot::OHLC
  *
- * This class allows to plot a circle inside the plot. The circle has a fixed
- * radius and the pivot represent the center.
+ * This class represents OHLC data type. OHLC are a set of values used in
+ * financial plots and define the Open, High, Low and Close values.
  */

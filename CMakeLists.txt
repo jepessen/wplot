@@ -4,7 +4,7 @@
 #
 # QT_DIR: Path to Qt installation.
 
-cmake_minimum_required (VERSION 3.0.0)
+cmake_minimum_required (VERSION 3.1.0)
 
 # Variables that should be set before execution
 if (WIN32)

@@ -59,4 +59,6 @@ private:
  * This class allows to specify a line graph. In a line graph we have many
  * scalar values that are joined by segments. It's possibile to specify the
  * style of the segments.
+ *
+ * @image html barplot.svg "Black-white barplot example."
  */

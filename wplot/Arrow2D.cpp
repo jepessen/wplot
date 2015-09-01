@@ -31,77 +31,165 @@ Arrow2D::Arrow2D() :
 	m_arrowBrush.setStyle(Qt::SolidPattern);
 }
 
+/**
+ * Set the final point of the arrow. This is the coordinate where arrow ends.
+ * The initial point is defined by setPivot() in base class.
+ *
+ * @param[in] point Final point coordinates.
+ */
 void Arrow2D::setFinalPoint(const QPointF &point) {
 	m_finalPoint = point;
 }
 
+/**
+ * Set the final point of the arrow. This is the coordinate where arrow ends.
+ * The initial point is defined by setPivot() in base class.
+ *
+ * @param[in] x Final point X coordinate.
+ * @param[in] y Final point Y coordinate.
+ */
 void Arrow2D::setFinalPoint(const double &x, const double &y) {
 	m_finalPoint.setX(x);
 	m_finalPoint.setY(y);
 }
 
+/**
+ * Set line coordinates.
+ *
+ * @param[in] initialPoint Initial point coordinates.
+ * @param[in] finalPoint Final point coordinates.
+ */
 void Arrow2D::setLine(const QPointF &initialPoint, const QPointF &finalPoint) {
 	setPivot(initialPoint);
 	setFinalPoint(finalPoint);
 }
 
+/**
+ * Set line coordinates.
+ *
+ * @param[in] x1 Initial point X coordinate.
+ * @param[in] y1 Initial point Y coordinate.
+ * @param[in] x2 Final point X coordinate.
+ * @param[in] y2 Final point Y coordinate.
+ */
 void Arrow2D::setLine(const double &x1, const double &y1, const double &x2, const double &y2) {
 	setPivot(x1, y1);
 	setFinalPoint(x2, y2);
 }
 
+/**
+ * Set the color of arrow line.
+ *
+ * @const color Color.
+ */
 void Arrow2D::setLineColor(const QColor &color) {
 	m_lineColor = color;
 	m_linePen.setColor(color);
 }
 
+/**
+ * Set the width of the arrow line.
+ *
+ * @param[in] width width.
+ */
 void Arrow2D::setLineWidth(const double &width) {
 	m_lineWidth = width;
 	m_linePen.setWidthF(width);
 }
 
+/**
+ * Set the style of the arrow line.
+ *
+ * @param[in] style Style.
+ */
 void Arrow2D::setLineStyle(const Qt::PenStyle &style) {
 	m_lineStyle = style;
 	m_linePen.setStyle(style);
 }
 
+/**
+ * Set the color of the internal part of the arrow.
+ *
+ * @param[in] color Color.
+ */
 void Arrow2D::setArrowFillColor(const QColor &color) {
 	m_arrowFillColor = color;
 	m_arrowBrush.setColor(color);
 }
 
+/**
+ * Set the color of the triangle arrow line.
+ *
+ * @param[in] color Color.
+ */
 void Arrow2D::setArrowLineColor(const QColor &color) {
 	m_arrowLineColor = color;
 	m_arrowLinePen.setColor(color);
 }
 
+/**
+ * Set the width of the triangle arrow line.
+ *
+ * @param[in] width Width.
+ */
 void Arrow2D::setArrowLineWidth(const double &width) {
 	m_arrowLineWidth = width;
 	m_arrowLinePen.setWidthF(width);
 }
 
+/**
+ * Set the style of the triangle arrow line.
+ *
+ * @param[in] style Style.
+ */
 void Arrow2D::setArrowLineStyle(const Qt::PenStyle &style) {
 	m_arrowLineStyle = style;
 	m_arrowLinePen.setStyle(style);
 }
 
+/**
+ * Set the length of the arrow triangle.
+ *
+ * @param[in] length Length.
+ */
 void Arrow2D::setArrowLength(const double &length) {
 	m_arrowLength = length;
 }
 
+/**
+ * Set the width of the arrow triangle.
+ *
+ * @param[in] width Width.
+ */
 void Arrow2D::setArrowWidth(const double &width) {
 	m_arrowWidth = width;
 }
 
+/**
+ * Set the dimension of the arrow at the same time.
+ *
+ * @param[in] width Width.
+ * @param[in] length Length.
+ */
 void Arrow2D::setArrowDimensions(const double &width, const double &length) {
 	m_arrowLength = length;
 	m_arrowWidth = width;
 }
 
+/**
+ * Retrieve the length of the arrow.
+ *
+ * @return Length.
+ */
 double Arrow2D::getArrowLength() const {
 	return m_arrowLength;
 }
 
+/**
+ * Retrieve the width of the arrow.
+ *
+ * @return Width.
+ */
 double Arrow2D::getArrowWidth() const {
 	return m_arrowWidth;
 }
@@ -110,6 +198,11 @@ double Arrow2D::getArrowWidth() const {
 // VIRTUAL PUBLIC SECTION                                                    //
 ///////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Draw the arrow.
+ *
+ * @param[inout] plot Plot where arrow must be plotted.
+ */
 void Arrow2D::draw(Plot2D *plot) {
 	QPainter painter(plot);
 	plot->initializePainter(painter);
@@ -122,6 +215,12 @@ void Arrow2D::draw(Plot2D *plot) {
 // PRIVATE SECTION                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Draw the arrow line.
+ *
+ * @param[in] painter Painter that must be used.
+ * @param[in] plot Plot where arrow must be plotted.
+ */
 void Arrow2D::drawLine(QPainter &painter, Plot2D *plot) {
 	const auto initialPoint = getScaledPosition(m_pivot, plot);
 	const auto finalPoint = getScaledPosition(m_finalPoint, plot);
@@ -129,6 +228,12 @@ void Arrow2D::drawLine(QPainter &painter, Plot2D *plot) {
 	painter.drawLine(initialPoint, finalPoint);
 }
 
+/**
+ * Draw the arrow triangle.
+ *
+ * @param[in] painter Painter that must be used.
+ * @param[in] plot Plot where arrow must be plotted.
+ */
 void Arrow2D::drawArrow(QPainter &painter, Plot2D *plot){
 	painter.setPen(m_arrowLinePen);
 	painter.setBrush(m_arrowBrush);

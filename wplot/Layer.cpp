@@ -39,7 +39,13 @@ void Layer::initPainter(QPainter &painter, Plot* plot) {
 	}
 }
 
-
+/**
+ * Set the corresponding painter to be able to draw only inside the
+ * padded area.
+ *
+ * @param[inout] painter Painter.
+ * @param[inout] plot Plot.
+ */
 void Layer::limitPainterInPaddingArea(QPainter &painter, Plot *plot) {
 	if (true == m_usePaddingArea) {
 		const auto padding = plot->getPixelPadding();

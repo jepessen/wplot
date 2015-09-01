@@ -78,5 +78,10 @@ private:
 /**
  * @class WPlot::Arrow2D
  *
- * This allows to draw an arrow in the plot.
+ * The class allows to draw arrows inside a plot. The arrow is defined by
+ * a line and a endcap that represents the arrows itself. It's possibile to
+ * define arrows dimensions in addition to other usual parameters like width
+ * and colors.
+ *
+ * @image html arrow.svg "Arrow dimension setting."
  */

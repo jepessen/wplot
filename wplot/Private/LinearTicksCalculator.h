@@ -30,3 +30,24 @@ public:
 } // namespace WPlot
 
 #endif // !WPLOT_PRIVATE_LINEARTICKSCALCULATOR_H_
+
+///////////////////////////////////////////////////////////////////////////////
+// DOCUMENTATION                                                             //
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @class WPlot::Private::LinearTicksCalculator
+ *
+ * This class is a specialization of TicksCalculator that allows to calculate
+ * ticks in a linear scale.
+ *
+ * @image html ruler.svg "Ticks inside lower and upper limits."
+ *
+ * Considering the image, we can see the axis with lower and upper limits that
+ * are set. Ticks start from axis origin and go to the right (and to the left
+ * as well). The distance between two ticks is always the same and is equal to
+ * step that we set.
+ *
+ * The ticks that this class returns are the ones that are between lower and
+ * upper limit.
+ */

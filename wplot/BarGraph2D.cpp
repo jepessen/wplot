@@ -23,30 +23,62 @@ BarGraph2D::BarGraph2D() :
 	m_brush.setStyle(Qt::SolidPattern);
 }
 
+/**
+ * Set color for bar border lines.
+ *
+ * @param[in] color Color.
+ */
 void BarGraph2D::setBarLineColor(const QColor &color) {
 	m_lineColor = color;
 	m_pen.setColor(color);
 }
 
+/**
+ * Set bar border lines width.
+ *
+ * @param[in] width Width.
+ */
 void BarGraph2D::setBarLineWidth(const double &width) {
 	m_lineWidth = width;
 	m_pen.setWidthF(width);
 }
 
+/**
+ * Set style for bar border lines.
+ *
+ * @param[in] style Style.
+ */
 void BarGraph2D::setBarLineStyle(const Qt::PenStyle &style) {
 	m_lineStyle = style;
 	m_pen.setStyle(style);
 }
 
+/**
+ * Set bar color.
+ *
+ * @param[in] color Color.
+ */
 void BarGraph2D::setBarColor(const QColor &color) {
 	m_fillColor = color;
 	m_brush.setColor(color);
 }
 
+/**
+ * Set the flag that enable bottom line drawing. The bottom line is the one
+ * that lies in X axis. This line has the same style of other lines so it
+ * can be useful sometime to hide it.
+ *
+ * @param[in] enable Enabling flag.
+ */
 void BarGraph2D::enableBottomBarLine(const bool &enable) {
 	m_bottomLineEnabled = enable;
 }
 
+/**
+ * Set bar width.
+ *
+ * @param[in] width Width.
+ */
 void BarGraph2D::setBarWidth(const double &width) {
 	m_barWidth = width;
 }

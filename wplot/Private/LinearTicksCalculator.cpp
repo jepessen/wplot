@@ -20,6 +20,12 @@ LinearTicksCalculator::LinearTicksCalculator(const double &step, const double &l
 // VIRTUAL PUBLIC SECTION                                                    //
 ///////////////////////////////////////////////////////////////////////////////
 
+/**
+ * The method is an implementation of base class pure virtual one. It
+ * calculates the list of ticks that lies between lower and upper limits.
+ *
+ * @return Tick coordinate list.
+ */
 QVector<double> LinearTicksCalculator::getTicks() const {
 	QVector<double> ticks;
 	double intDivision;

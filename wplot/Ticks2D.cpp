@@ -80,225 +80,466 @@ Ticks2D::Ticks2D() :
 	m_axisYTextOptions.setAlignment(Qt::AlignRight);
 }
 
+/**
+ * Set the primary step in X axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setXPrimaryStep(const double &step) {
 	m_axisXPrimaryStep = step;
 }
 
+/**
+ * Set the secondary step in X axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setXSecondaryStep(const double &step) {
 	m_axisXSecondaryStep = step;
 }
 
+/**
+ * Set the primary step in Y axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setYPrimaryStep(const double &step) {
 	m_axisYPrimaryStep = step;
 }
 
+/**
+ * Set the secondary step in Y axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setYSecondaryStep(const double &step) {
 	m_axisYSecondaryStep = step;
 }
 
+/**
+ * Set the primary step in both axes.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setPrimaryStep(const double &step) {
 	setXPrimaryStep(step);
 	setYPrimaryStep(step);
 }
 
+/**
+ * Set the secondary step in both axes.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setSecondaryStep(const double &step) {
 	setXSecondaryStep(step);
 	setYSecondaryStep(step);
 }
 
+/**
+ * Set the length of primary tick in X axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setXPrimaryTickLength(const double &length) {
 	m_axisXPrimaryTickLength = length;
 }
 
+/**
+ * Set the length of secondary tick in X axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setXSecondaryTickLength(const double &length) {
 	m_axisXSecondaryTickLength = length;
 }
 
+/**
+ * Set the length of primary tick in both axes.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setPrimaryTickLength(const double &length) {
 	setXPrimaryTickLength(length);
 	setYPrimaryTickLength(length);
 }
 
+/**
+ * Set the length of primary tick in Y axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setYPrimaryTickLength(const double &length) {
 	m_axisYPrimaryTickLength = length;
 }
 
+/**
+ * Set the length of secondary tick in Y axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setYSecondaryTickLength(const double &length) {
 	m_axisYSecondaryTickLength = length;
 }
 
+/**
+ * Set the length of secondary tick in both axes.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setSecondaryTickLength(const double &length) {
 	setXSecondaryTickLength(length);
 	setYSecondaryTickLength(length);
 }
 
+/**
+ * Set the width of primary tick in X axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setXPrimaryTickWidth(const double &width) {
 	m_axisXPrimaryTickWidth = width;
 	m_axisXPrimaryTickPen.setWidthF(width);
 }
 
+/**
+ * Set the width of secondary tick in X axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setXSecondaryTickWidth(const double &width) {
 	m_axisXSecondaryTickWidth = width;
 	m_axisXSecondaryTickPen.setWidthF(width);
 }
 
+/**
+ * Set the width of all ticks in X axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setXTickWidth(const double &width) {
 	setXPrimaryTickWidth(width);
 	setXSecondaryTickWidth(width);
 }
 
+/**
+ * Set the width of primary tick in Y axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setYPrimaryTickWidth(const double &width) {
 	m_axisYPrimaryTickWidth = width;
 	m_axisYPrimaryTickPen.setWidthF(width);
 }
 
+/**
+ * Set the width of secondary tick in Y axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setYSecondaryTickWidth(const double &width) {
 	m_axisYSecondaryTickWidth = width;
 	m_axisYSecondaryTickPen.setWidthF(width);
 }
 
+/**
+ * Set the width of all ticks in Y axis.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setYTickWidth(const double &width) {
 	setYPrimaryTickWidth(width);
 	setYSecondaryTickWidth(width);
 }
 
+/**
+ * Set the width of primary ticks in both axes.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setPrimaryTickWidth(const double &width) {
 	setXPrimaryTickWidth(width);
 	setYPrimaryTickWidth(width);
 }
 
+/**
+ * Set the width of secondary ticks in both axes.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setSecondaryTickWidth(const double &width) {
 	setXSecondaryTickWidth(width);
 	setYSecondaryTickWidth(width);
 }
 
+/**
+ * Set the width of all ticks in both axes.
+ *
+ * @param[in] step Step.
+ */
 void Ticks2D::setTickWidth(const double &width) {
 	setPrimaryTickWidth(width);
 	setSecondaryTickWidth(width);
 }
 
+/**
+ * Set the color of primary tick in X axis.
+ *
+ * @param[in] color Color.
+ */
 void Ticks2D::setXPrimaryTickColor(const QColor &color) {
 	m_axisXPrimaryTickColor = color;
 	m_axisXPrimaryTickPen.setColor(color);
 }
 
+/**
+ * Set the color of primary tick in Y axis.
+ *
+ * @param[in] color Color.
+ */
 void Ticks2D::setYPrimaryTickColor(const QColor &color) {
 	m_axisYPrimaryTickColor = color;
 	m_axisYPrimaryTickPen.setColor(color);
 }
 
+/**
+ * Set the color of primary tick in both axes.
+ *
+ * @param[in] color Color.
+ */
 void Ticks2D::setPrimaryTickColor(const QColor &color) {
 	setXPrimaryTickColor(color);
 	setXPrimaryTickColor(color);
 }
 
+/**
+ * Set the color of secondary tick in X axis.
+ *
+ * @param[in] color Color.
+ */
 void Ticks2D::setXSecondaryTickColor(const QColor &color) {
 	m_axisXSecondaryTickColor = color;
 	m_axisXSecondaryTickPen.setColor(color);
 }
 
+/**
+ * Set the color of secondary tick in Y axis.
+ *
+ * @param[in] color Color.
+ */
 void Ticks2D::setYSecondaryTickColor(const QColor &color) {
 	m_axisYSecondaryTickColor = color;
 	m_axisYSecondaryTickPen.setColor(color);
 }
 
+/**
+ * Set the color of secondary tick in both axes.
+ *
+ * @param[in] color Color.
+ */
 void Ticks2D::setSecondaryTickColor(const QColor &color) {
 	setXSecondaryTickColor(color);
 	setYSecondaryTickColor(color);
 }
 
+/**
+ * Set the style of primary tick in X axis.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setXPrimaryTickStyle(const Qt::PenStyle &style) {
 	m_axisXPrimaryTickStyle = style;
 	m_axisXPrimaryTickPen.setStyle(style);
 }
 
+/**
+ * Set the style of primary tick in Y axis.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setYPrimaryTickStyle(const Qt::PenStyle &style) {
 	m_axisYPrimaryTickStyle = style;
 	m_axisYPrimaryTickPen.setStyle(style);
 }
 
+/**
+ * Set the style of primary tick in both axes.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setPrimaryTickStyle(const Qt::PenStyle &style) {
 	setXPrimaryTickStyle(style);
 	setYPrimaryTickStyle(style);
 }
 
+/**
+ * Set the style of secondary tick in X axis.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setXSecondaryTickStyle(const Qt::PenStyle &style) {
 	m_axisXSecondaryTickStyle = style;
 	m_axisXSecondaryTickPen.setStyle(style);
 }
 
+/**
+ * Set the style of secondary tick in Y axis.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setYSecondaryTickStyle(const Qt::PenStyle &style) {
 	m_axisYSecondaryTickStyle = style;
 	m_axisYSecondaryTickPen.setStyle(style);
 }
 
+/**
+ * Set the style of secondary tick in both axes.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setSecondaryTickStyle(const Qt::PenStyle &style) {
 	setXSecondaryTickStyle(style);
 	setYSecondaryTickStyle(style);
 }
 
+/**
+ * Set the style of all ticks in X axis.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setXTickStyle(const Qt::PenStyle &style) {
 	setXPrimaryTickStyle(style);
 	setXSecondaryTickStyle(style);
 }
 
+/**
+ * Set the style of all ticks in Y axis.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setYTickStyle(const Qt::PenStyle &style) {
 	setYPrimaryTickStyle(style);
 	setYSecondaryTickStyle(style);
 }
 
+/**
+ * Set the style of all ticks in both axes.
+ *
+ * @param[in] style style.
+ */
 void Ticks2D::setTickStyle(const Qt::PenStyle &style) {
 	setYTickStyle(style);
 	setXTickStyle(style);
 }
 
+/**
+ * Set the format type of labels in X axis.
+ *
+ * @param[in] type Format type.
+ */
 void Ticks2D::setXLabelFormatType(const FormatType &type) {
 	m_axisXFormatType = type;
 }
 
+/**
+ * Set the format type of labels in Y axis.
+ *
+ * @param[in] type Format type.
+ */
 void Ticks2D::setYLabelFormatType(const FormatType &type) {
 	m_axisYFormatType = type;
 }
 
+/**
+ * Set the format type of labels in both axes.
+ *
+ * @param[in] type Format type.
+ */
 void Ticks2D::Ticks2D::setLabelFormatType(const FormatType &type) {
 	setXLabelFormatType(type);
 	setYLabelFormatType(type);
 }
 
+/**
+ * Set the font of labels in X axis.
+ *
+ * @param[in] font Font.
+ */
 void Ticks2D::setXLabelFont(const QFont &font) {
 	m_axisXFont = font;
 }
 
+/**
+ * Set the font of labels in Y axis.
+ *
+ * @param[in] font Font.
+ */
 void Ticks2D::setYLabelFont(const QFont &font) {
 	m_axisYFont = font;
 }
 
+/**
+ * Set the font of labels in both axes.
+ *
+ * @param[in] font Font.
+ */
 void Ticks2D::setLabelFont(const QFont &font) {
 	setXLabelFont(font);
 	setYLabelFont(font);
 }
 
+/**
+ * Set the distance of labels from X axis.
+ *
+ * @param[in] distance Distance.
+ */
 void Ticks2D::setXLabelDistanceFromAxis(const double &distance) {
 	m_axisXLabelDistance = distance;
 }
 
+/**
+ * Set the distance of labels from Y axis.
+ *
+ * @param[in] distance Distance.
+ */
 void Ticks2D::setYLabelDistanceFromAxis(const double &distance) {
 	m_axisYLabelDistance = distance;
 }
 
+/**
+ * Set the distance of labels from both axes.
+ *
+ * @param[in] distance Distance.
+ */
 void Ticks2D::setLabelDistanceFromAxis(const double &distance) {
 	setXLabelDistanceFromAxis(distance);
 	setYLabelDistanceFromAxis(distance);
 }
 
+/**
+ * Enables the drawing of labels.
+ *
+ * @param[in] flag Enabling flag.
+ */
 void Ticks2D::setEnableLabels(const bool &flag) {
 	m_labelEnabled = flag;
 }
 
+/**
+ * Set ticks origin.
+ *
+ * @param[in] origin Origin.
+ */
 void Ticks2D::setOrigin(const QPointF &origin) {
 	m_origin = origin;
 }
 
+/**
+ * Set ticks origin.
+ *
+ * @param[in] x Origin X coordinate.
+ * @param[in] y Origin Y coordinate.
+ */
 void Ticks2D::setOrigin(const double &x, const double &y) {
 	m_origin.setX(x);
 	m_origin.setY(y);
@@ -308,6 +549,11 @@ void Ticks2D::setOrigin(const double &x, const double &y) {
 // VIRTUAL PUBLIC SECTION                                                    //
 ///////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Draw the ticks.
+ *
+ * @param[inout] plot Plot where text must be plotted.
+ */
 void Ticks2D::draw(Plot2D *plot) {
 	drawAxisXTicks(plot);
 	drawAxisYTicks(plot);
@@ -321,6 +567,11 @@ void Ticks2D::draw(Plot2D *plot) {
 // PRIVATE SECTION                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Draw ticks for X axis.
+ *
+ * @param[inout] plot Plot where text must be plotted.
+ */
 void Ticks2D::drawAxisXTicks(Plot2D *plot) {
 	QPainter painter(plot);
 	const auto upperLeftLimits = plot->getUpperLeftCorner();
@@ -346,6 +597,11 @@ void Ticks2D::drawAxisXTicks(Plot2D *plot) {
 	}
 }
 
+/**
+ * Draw ticks for Y axis.
+ *
+ * @param[inout] plot Plot where text must be plotted.
+ */
 void Ticks2D::drawAxisYTicks(Plot2D *plot) {
 	QPainter painter(plot);
 	const auto upperLeftLimits = plot->getUpperLeftCorner();
@@ -371,6 +627,11 @@ void Ticks2D::drawAxisYTicks(Plot2D *plot) {
 	}
 }
 
+/**
+ * Draw labels for X axis.
+ *
+ * @param[inout] plot Plot where text must be plotted.
+ */
 void Ticks2D::drawAxisXLabels(Plot2D *plot) {
 	QPainter painter(plot);
 	QFontMetrics fontMetrics(m_axisXFont);
@@ -411,6 +672,11 @@ void Ticks2D::drawAxisXLabels(Plot2D *plot) {
 	}
 }
 
+/**
+ * Draw labels for Y axis.
+ *
+ * @param[inout] plot Plot where text must be plotted.
+ */
 void Ticks2D::drawAxisYLabels(Plot2D *plot) {
 	QPainter painter(plot);
 	QFontMetrics fontMetrics(m_axisYFont);
@@ -451,6 +717,11 @@ void Ticks2D::drawAxisYLabels(Plot2D *plot) {
 	}
 }
 
+/**
+ * Retrieve the label text in the right format.
+ *
+ * @param[in] value Value.
+ */
 QString Ticks2D::getLabelText(const double &value) const {
 	switch (m_axisYFormatType) {
 		case FORMAT_INTEGER : {

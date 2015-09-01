@@ -16,11 +16,25 @@ Plot2D::Plot2D(QWidget *parent) :
 	m_scaleY(1.0)
 {}
 
+/**
+ * Set the limits of the plot area.
+ *
+ * @param[in] upperLeftCorner Coordinetes of upper left corner.
+ * @param[in] lowerRightCorner Coordinates of lower right corner.
+ */
 void Plot2D::setPlotLimits(const QPointF &upperLeftCorner, const QPointF &lowerRightCorner) {
 	m_upperLeftCorner = upperLeftCorner;
 	m_lowerRightCorner = lowerRightCorner;
 }
 
+/**
+ * Set the limits of the plot area.
+ *
+ * @param[in] xMin Minimum X value.
+ * @param[in] xMax Maximum X value.
+ * @param[in] yMin Minimym Y value.
+ * @param[in] yMax Maximym Y value.
+ */
 void Plot2D::setPlotLimits(const double &xMin, const double &xMax, const double &yMin, const double &yMax) {
 	m_upperLeftCorner.setX(xMin);
 	m_upperLeftCorner.setY(yMax);
@@ -28,14 +42,29 @@ void Plot2D::setPlotLimits(const double &xMin, const double &xMax, const double 
 	m_lowerRightCorner.setY(yMin);
 }
 
+/**
+ * Retrieve the upper left corner.
+ *
+ * @return Corner coordinates.
+ */
 QPointF Plot2D::getUpperLeftCorner() const {
 	return m_upperLeftCorner;
 }
 
+/**
+ * Retrieve the lower right corner.
+ *
+ * @return Corner coordinates.
+ */
 QPointF Plot2D::getLowerRightCorner() const {
 	return m_lowerRightCorner;
 }
 
+/**
+ * Add a grid to the plot.
+ *
+ * @param[in] grid Grid that must be added.
+ */
 void Plot2D::addGrid(const Grid2D::Ptr &grid) {
 	if (grid == nullptr) {
 		return;
@@ -43,6 +72,12 @@ void Plot2D::addGrid(const Grid2D::Ptr &grid) {
 	m_gridList.append(grid);
 }
 
+/**
+ * Add a grid to the plot at specified index.
+ *
+ * @param[in] index Index.
+ * @param[in] grid Grid that must be added.
+ */
 void Plot2D::addGrid(const int &index, const Grid2D::Ptr &grid) {
 	if (grid == nullptr) {
 		return;
@@ -56,6 +91,11 @@ void Plot2D::addGrid(const int &index, const Grid2D::Ptr &grid) {
 	}
 }
 
+/**
+ * Add a axes to the plot.
+ *
+ * @param[in] axes Axes that must be added.
+ */
 void Plot2D::addAxes(const Axes2D::Ptr &axes) {
 	if (axes == nullptr) {
 		return;
@@ -63,6 +103,12 @@ void Plot2D::addAxes(const Axes2D::Ptr &axes) {
 	m_axesList.append(axes);
 }
 
+/**
+ * Add axes to the plot at specified index.
+ *
+ * @param[in] index Index.
+ * @param[in] axes Axes that must be added.
+ */
 void Plot2D::addAxes(const int &index, const Axes2D::Ptr &axes) {
 	if (axes == nullptr) {
 		return;
@@ -110,6 +156,11 @@ void Plot2D::addGraph(const int &index, const Graph::Ptr &graph) {
 	}
 }
 
+/**
+ * Add an item to the plot. The item will be drawn above graphs.
+ *
+ * @param[in] item Item.
+ */
 void Plot2D::addItem(const Item2D::Ptr &item) {
 	if (item == nullptr) {
 		return;
@@ -117,6 +168,13 @@ void Plot2D::addItem(const Item2D::Ptr &item) {
 	m_itemList.append(item);
 }
 
+/**
+ * Add an item to the plot at specified index. The item will be
+ * drawn above graphs.
+ *
+ * @param[in] index Index.
+ * @param[in] item Item.
+ */
 void Plot2D::addItem(const int &index, const Item2D::Ptr &item) {
 	if (item == nullptr) {
 		return;

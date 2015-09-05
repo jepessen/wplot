@@ -24,21 +24,35 @@ public:
 	void setSecondaryXStep(const double &step);
 	void setPrimaryYStep(const double &step);
 	void setSecondaryYStep(const double &step);
+	void setPrimaryStep(const double &step);
+	void setSecondaryStep(const double &step);
 	void setPrimaryXColor(const QColor &color);
 	void setSecondaryXColor(const QColor &color);
 	void setPrimaryYColor(const QColor &color);
 	void setSecondaryYColor(const QColor &color);
+	void setPrimaryColor(const QColor &color);
+	void setSecondaryColor(const QColor &color);
+	void setGridColor(const QColor &color);
 	void setBoundaryColor(const QColor &color);
+	void setColor(const QColor &color);
 	void setPrimaryXStyle(const Qt::PenStyle &style);
 	void setSecondaryXStyle(const Qt::PenStyle &style);
 	void setPrimaryYStyle(const Qt::PenStyle &style);
 	void setSecondaryYStyle(const Qt::PenStyle &style);
+	void setPrimaryStyle(const Qt::PenStyle &style);
+	void setSecondaryStyle(const Qt::PenStyle &style);
+	void setGridStyle(const Qt::PenStyle &style);
 	void setBoundaryStyle(const Qt::PenStyle &style);
+	void setStyle(const Qt::PenStyle &style);
 	void setPrimaryXWidth(const double &width);
 	void setSecondaryXWidth(const double &width);
 	void setPrimaryYWidth(const double &width);
 	void setSecondaryYWidth(const double &width);
+	void setPrimaryWidth(const double &width);
+	void setSecondaryWidth(const double &width);
+	void setGridWidth(const double &width);
 	void setBoundaryWidth(const double &width);
+	void setWidth(const double &width);
 
 public:
 

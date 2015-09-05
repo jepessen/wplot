@@ -104,6 +104,26 @@ void Grid2D::setSecondaryYStep(const double &step) {
 }
 
 /**
+ * Set the primay step for both axis.
+ *
+ * @param[in] step Step.
+ */
+void Grid2D::setPrimaryStep(const double &step) {
+	setPrimaryXStep(step);
+	setPrimaryYStep(step);
+}
+
+/**
+ * Set the secondary step for both axis.
+ *
+ * @param[in] step Step.
+ */
+void Grid2D::setSecondaryStep(const double &step) {
+	setSecondaryXStep(step);
+	setSecondaryYStep(step);
+}
+
+/**
  * Set the color for primary grid lines of the \f$X\f$ axis.
  *
  * @param[in] color Color.
@@ -144,6 +164,36 @@ void Grid2D::setSecondaryYColor(const QColor &color) {
 }
 
 /**
+ * Set the color for primary grid lines in both axis.
+ *
+ * @param[in] color Color.
+ */
+void Grid2D::setPrimaryColor(const QColor &color) {
+	setPrimaryXColor(color);
+	setPrimaryYColor(color);
+}
+
+/**
+ * Set the color for secondary grid lines in both axis.
+ *
+ * @param[in] color Color.
+ */
+void Grid2D::setSecondaryColor(const QColor &color) {
+	setSecondaryXColor(color);
+	setSecondaryYColor(color);
+}
+
+/**
+ * Set the color for primary and secondary grid lines in both axis.
+ *
+ * @param[in] color Color.
+ */
+void Grid2D::setGridColor(const QColor &color) {
+	setPrimaryColor(color);
+	setSecondaryColor(color);
+}
+
+/**
  * Set the color for boundary rectangle.
  *
  * @param[in] color Color.
@@ -151,6 +201,16 @@ void Grid2D::setSecondaryYColor(const QColor &color) {
 void Grid2D::setBoundaryColor(const QColor &color) {
 	m_boundaryColor = color;
 	m_boundaryPen.setColor(color);
+}
+
+/**
+ * Set the color for the entire grid.
+ *
+ * @param[in] color Color.
+ */
+void Grid2D::setColor(const QColor &color) {
+	setGridColor(color);
+	setBoundaryColor(color);
 }
 
 /**
@@ -194,6 +254,36 @@ void Grid2D::setSecondaryYStyle(const Qt::PenStyle &style) {
 }
 
 /**
+ * Set the style for primary lines.
+ *
+ * @param[in] style Style.
+ */
+void Grid2D::setPrimaryStyle(const Qt::PenStyle &style) {
+	setPrimaryXStyle(style);
+	setPrimaryYStyle(style);
+}
+
+/**
+ * Set the style for secondary lines.
+ *
+ * @param[in] style Style.
+ */
+void Grid2D::setSecondaryStyle(const Qt::PenStyle &style) {
+	setSecondaryXStyle(style);
+	setSecondaryYStyle(style);
+}
+
+/**
+ * Set the style for all grid lines.
+ *
+ * @param[in] style Style.
+ */
+void Grid2D::setGridStyle(const Qt::PenStyle &style) {
+	setPrimaryStyle(style);
+	setSecondaryStyle(style);
+}
+
+/**
  * Set the style for boundary rectangle.
  *
  * @param[in] style Style.
@@ -201,6 +291,16 @@ void Grid2D::setSecondaryYStyle(const Qt::PenStyle &style) {
 void Grid2D::setBoundaryStyle(const Qt::PenStyle &style) {
 	m_boundaryStyle = style;
 	m_boundaryPen.setStyle(style);
+}
+
+/**
+ * Set the style for entire grid.
+ *
+ * @param[in] style Style.
+ */
+void Grid2D::setStyle(const Qt::PenStyle &style) {
+	setGridStyle(style);
+	setBoundaryStyle(style);
 }
 
 /**
@@ -244,6 +344,36 @@ void Grid2D::setSecondaryYWidth(const double &width) {
 }
 
 /**
+ * Set the width for primary lines in both axis.
+ *
+ * @param[in] width Width.
+ */
+void Grid2D::setPrimaryWidth(const double &width) {
+	setPrimaryXWidth(width);
+	setPrimaryYWidth(width);
+}
+
+/**
+ * Set the width for secondary lines in both axis.
+ *
+ * @param[in] width Width.
+ */
+void Grid2D::setSecondaryWidth(const double &width) {
+	setSecondaryXWidth(width);
+	setSecondaryYWidth(width);
+}
+
+/**
+ * Set the width for grid lines.
+ *
+ * @param[in] width Width.
+ */
+void Grid2D::setGridWidth(const double &width) {
+	setPrimaryWidth(width);
+	setSecondaryWidth(width);
+}
+
+/**
  * Set the width in pixels for boundary rectangle.
  *
  * @param[in] width Width.
@@ -251,6 +381,16 @@ void Grid2D::setSecondaryYWidth(const double &width) {
 void Grid2D::setBoundaryWidth(const double &width) {
 	m_boundaryWidth = width;
 	m_boundaryPen.setWidthF(width);
+}
+
+/**
+ * Set the width for the entire grid.
+ *
+ * @param[in] width Width.
+ */
+void Grid2D::setWidth(const double &width) {
+	setGridWidth(width);
+	setBoundaryWidth(width);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

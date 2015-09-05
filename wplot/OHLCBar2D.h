@@ -34,6 +34,7 @@ public:
 
 public:
 
+	virtual void setColor(const QColor &color);
 	virtual void draw(Plot2D *plot);
 
 private:

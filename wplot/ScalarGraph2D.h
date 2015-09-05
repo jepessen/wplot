@@ -5,6 +5,7 @@
 #include "wplot/Graph2D.h"
 #include <QPolygonF>
 #include <memory>
+#include <functional>
 
 namespace WPlot {
 
@@ -24,6 +25,7 @@ public:
 	void appendPoint(const double &x, const double &y);
 	void insertPoint(const int &index, const QPointF &point);
 	void insertPoint(const int &index, const double &x, const double &y);
+	void setColorFunction(const std::function<QColor(QPointF)> &colorFunction);
 
 public:
 
@@ -32,6 +34,7 @@ public:
 protected:
 
 	QPolygonF m_data;
+	std::function<QColor(QPointF)> m_colorFunction;
 };
 
 } // namespace WPlot

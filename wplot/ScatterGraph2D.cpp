@@ -30,6 +30,9 @@ void ScatterGraph2D::draw(Plot2D *plot) {
 	m_item->setDrawingInPaddingArea(true);
 	for (auto& it : m_data) {
 		m_item->setPivot(it);
+		if (nullptr != m_colorFunction) {
+			m_item->setColor(m_colorFunction(it));
+		}
 		m_item->draw(plot);
 	}
 }

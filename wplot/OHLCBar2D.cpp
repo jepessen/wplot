@@ -87,6 +87,18 @@ void OHLCBar2D::setTickWidth(const double &width) {
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Set the item color.
+ *
+ * It's an implementation of pure virtual method of base class used when in the
+ * Item2D the color is needed.
+ *
+ * @param[in] color Color.
+ */
+void OHLCBar2D::setColor(const QColor &color) {
+
+}
+
+/**
  * Draw the OHLC bar in specified plot.
  *
  * @param[in] plot Plot where item must be drawn.

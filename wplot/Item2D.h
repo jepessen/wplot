@@ -6,6 +6,7 @@
 #include <QPointF>
 #include <QSizeF>
 #include <memory>
+#include <QColor>
 
 namespace WPlot {
 
@@ -50,6 +51,10 @@ public:
 	QPointF getScaledDimensions(const double &x, const double &y, const Plot2D *plot) const;
 	double getScaledDimensionX(const double &x, const Plot2D *plot) const;
 	double getScaledDimensionY(const double &y, const Plot2D *plot) const;
+
+public:
+
+	virtual void setColor(const QColor &color) = 0;
 
 protected:
 

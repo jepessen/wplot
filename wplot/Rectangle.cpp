@@ -103,6 +103,18 @@ void Rectangle::setLineStyle(const Qt::PenStyle &style) {
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Set the item color.
+ *
+ * It's an implementation of pure virtual method of base class used when in the
+ * Item2D the color is needed.
+ *
+ * @param[in] color Color.
+ */
+void Rectangle::setColor(const QColor &color) {
+	setFillColor(color);
+}
+
+/**
  * Draw the rectangle.
  *
  * @param[inout] plot Plot where rectangle must be plotted.

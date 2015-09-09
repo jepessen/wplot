@@ -111,6 +111,9 @@ void BarGraph2D::draw(Plot2D *plot) {
 		} else {
 			QPolygonF line;
 			line << QPointF(topLeft.x(), bottomRight.y()) << topLeft << QPointF(bottomRight.x(), topLeft.y()) << bottomRight;
+			if (true == m_colorFunctionDefined) {
+				m_brush.setColor(m_colorFunction(m_data.at(i)));
+			}
 			painter.fillRect(rect, m_brush);
 			painter.drawPolyline(line);
 		}

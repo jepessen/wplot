@@ -30,6 +30,11 @@ public:
 
 private:
 
+	void drawSolidColorLine(Plot2D *plot);
+	void drawGradientLine(Plot2D *plot);
+
+private:
+
 	QColor m_lineColor;
 	double m_lineWidth;
 	QPen m_pen;

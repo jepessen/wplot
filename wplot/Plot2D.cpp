@@ -289,6 +289,65 @@ double Plot2D::scalePointY(const double &y) const {
 	return height() - paddingBottom - multY * fracY;
 }
 
+/**
+ * Scale the given point from widget coordinates to plot coordinates.
+ *
+ * @param[in] point Point.
+ *
+ * @return Scaled point in plot coordinates.
+ */
+QPointF Plot2D::inverseScalePoint(const QPointF &point) const {
+	return inverseScalePoint(point.x(), point.y());
+}
+
+/**
+ * Scale the given point from widget coordinates to plot coordinates.
+ *
+ * @param[in] x X coordinate.
+ * @param[in] y Y coordinate.
+ *
+ * @return Scaled point in plot coordinates.
+ */
+QPointF Plot2D::inverseScalePoint(const double &x, const double &y) const {
+	return QPointF(inverseScalePointX(x), inverseScalePointY(y));
+}
+
+/**
+ * Scale the coordiante in X axis from widget coordinates to plot coordinates.
+ *
+ * @param[in] x X coordinate.
+ *
+ * @return Scaled coordinate in plot coordinates.
+ */
+double Plot2D::inverseScalePointX(const double &x) const {
+	const double paddingLeft = m_padding.getLeftPadding(Padding::PIXELS);
+	const double paddingRight = m_padding.getRightPadding(Padding::PIXELS);
+	const double multX = paddingLeft + paddingRight - width();
+	const double a = m_upperLeftCorner.x();
+	const double b = m_lowerRightCorner.x();
+	const double num1 = a * (multX - paddingLeft + x);
+	const double num2 = b * (paddingLeft - x);
+	return (num1 + num2) / multX;
+}
+
+/**
+ * Scale the coordiante in Y axis from widget coordinates to plot coordinates.
+ *
+ * @param[in] y Y coordinate.
+ *
+ * @return Scaled coordinate in plot coordinates.
+ */
+double Plot2D::inverseScalePointY(const double &y) const {
+	const double paddingBottom = m_padding.getBottomPadding(Padding::PIXELS);
+	const double paddingTop = m_padding.getTopPadding(Padding::PIXELS);
+	const double multY = paddingBottom + paddingTop - height();
+	const double a = m_lowerRightCorner.y();
+	const double b = m_upperLeftCorner.y();
+	const double num1 = a * (height() + multY - paddingBottom - y);
+	const double num2 = b * (paddingBottom - height() + y);
+	return (num1 + num2) / multY;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // PROTECTED SECTION                                                         //
 ///////////////////////////////////////////////////////////////////////////////

@@ -52,6 +52,10 @@ public:
 	QPointF scalePoint(const double &x, const double &y) const;
 	double scalePointX(const double &x) const;
 	double scalePointY(const double &y) const;
+	QPointF inverseScalePoint(const QPointF &point) const;
+	QPointF inverseScalePoint(const double &x, const double &y) const;
+	double inverseScalePointX(const double &x) const;
+	double inverseScalePointY(const double &y) const;
 
 public:
 

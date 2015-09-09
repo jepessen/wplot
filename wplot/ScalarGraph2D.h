@@ -35,6 +35,7 @@ protected:
 
 	QPolygonF m_data;
 	std::function<QColor(QPointF)> m_colorFunction;
+	bool m_colorFunctionDefined;
 };
 
 } // namespace WPlot

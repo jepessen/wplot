@@ -4,6 +4,7 @@ namespace WPlot {
 
 ScalarGraph2D::ScalarGraph2D() :
 	Graph2D(),
+	m_colorFunctionDefined(false),
 	m_colorFunction(nullptr)
 {}
 
@@ -65,6 +66,7 @@ void ScalarGraph2D::clear() {
 
 void ScalarGraph2D::setColorFunction(const std::function<QColor(QPointF)> &colorFunction) {
 	m_colorFunction = colorFunction;
+	m_colorFunctionDefined = true;
 }
 
 } // namespace WPlot

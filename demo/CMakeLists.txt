@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1.0)
+cmake_minimum_required (VERSION 3.0.2)
 
 add_subdirectory (background_solid)
 add_subdirectory (background_gradient)

@@ -2,19 +2,19 @@
 
 # In order to work following variables must be set
 #
-# QT_DIR: Path to Qt installation.
+# QT_ROOT: Path to Qt installation.
 
-cmake_minimum_required (VERSION 3.1.0)
+cmake_minimum_required (VERSION 3.0.2)
 
 # Variables that should be set before execution
 if (WIN32)
-	set (QT_DIR "" CACHE PATH "Qt library path")
+	set (QT_ROOT "" CACHE PATH "Qt library path")
 else (WIN32)
-	set (QT_DIR "/usr/include" CACHE PATH "Qt library path")
+	set (QT_ROOT "/usr/include" CACHE PATH "Qt library path")
 endif (WIN32)
 
 message ("Generating WPlot project")
-message ("Setting QT_DIR To ${QT_DIR}")
+message ("Setting QT_ROOT To ${QT_ROOT}")
 
 add_subdirectory (wplot)
 add_subdirectory (demo)

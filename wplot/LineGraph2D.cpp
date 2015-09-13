@@ -12,7 +12,9 @@ namespace WPlot {
 LineGraph2D::LineGraph2D() :
 	ScalarGraph2D(),
 	m_lineColor(Qt::black),
-	m_lineWidth(1.0)
+	m_fillColor(0, 0, 0, 0),
+	m_lineWidth(1.0),
+	m_fillColorYCoordinate(0.0)
 {
 	m_pen.setColor(m_lineColor);
 	m_pen.setWidthF(m_lineWidth);
@@ -27,6 +29,24 @@ void LineGraph2D::setLineColor(const QColor &color) {
 	m_lineColor = color;
 	m_pen.setColor(color);
 	m_colorFunctionDefined = false;
+}
+
+/**
+ * Set the color for filling.
+ *
+ * @param[in] color Color.
+ */
+void LineGraph2D::setFillColor(const QColor &color) {
+	m_fillColor = color;
+}
+
+/**
+ * Set the coordinate that must be used in order to create the filling.
+ *
+ * @param[in] coordinate Coordinate.
+ */
+void LineGraph2D::setFillYCoordinate(const double &coordinate) {
+	m_fillColorYCoordinate = coordinate;
 }
 
 /**
@@ -51,6 +71,9 @@ void LineGraph2D::setLineWidth(const double &width) {
  * @internal It's not possible do define
  */
 void LineGraph2D::draw(Plot2D *plot) {
+	if (m_fillColor.alpha() != 0) {
+		drawFilling(plot);
+	}
 	if (false == m_colorFunctionDefined) {
 		drawSolidColorLine(plot);
 	} else {
@@ -124,6 +147,28 @@ void LineGraph2D::drawGradientLine(Plot2D *plot) {
 	QPainter plotPainter(plot);
 	plot->initializePainter(plotPainter);
 	plotPainter.drawImage(0, 0, image);
+}
+
+void LineGraph2D::drawFilling(Plot2D *plot) {
+	if (m_data.size() < 2) {
+		return;
+	}
+	QPainter painter(plot);
+	QPen pen;
+	QPolygonF polygon;
+	QBrush brush;
+	brush.setColor(m_fillColor);
+	brush.setStyle(Qt::SolidPattern);
+	painter.setBrush(brush);
+	pen.setBrush(brush);
+	painter.setPen(pen);
+	for (const auto& it : m_data) {
+		polygon << plot->scalePoint(it);
+	}
+	polygon << plot->scalePoint(m_data.back().x(), m_fillColorYCoordinate);
+	polygon << plot->scalePoint(m_data.front().x(), m_fillColorYCoordinate);
+	painter.drawPolygon(polygon);
+
 }
 
 } // namespace WPlot

@@ -23,6 +23,8 @@ public:
 	virtual ~LineGraph2D() = default;
 	void setLineColor(const QColor &color);
 	void setLineWidth(const double &width);
+	void setFillColor(const QColor &color);
+	void setFillYCoordinate(const double &coordinate);
 
 public:
 
@@ -32,11 +34,14 @@ private:
 
 	void drawSolidColorLine(Plot2D *plot);
 	void drawGradientLine(Plot2D *plot);
+	void drawFilling(Plot2D *plot);
 
 private:
 
 	QColor m_lineColor;
+	QColor m_fillColor;
 	double m_lineWidth;
+	double m_fillColorYCoordinate;
 	QPen m_pen;
 };
 

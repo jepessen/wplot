@@ -1,4 +1,4 @@
-#include "wplot/Plot2D.h"
+#include "wplot/CartesianPlot2D.h"
 #include "wplot/Ticks2D.h"
 #include "wplot/Axes2D.h"
 #include <QApplication>
@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
 	std::cout << "Styled text inset demo" << std::endl;
 	QApplication a(argc, argv);
-	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
+	WPlot::CartesianPlot2D* plot2D(new WPlot::CartesianPlot2D);
 	WPlot::Ticks2D::Ptr ticks(new WPlot::Ticks2D);
 	WPlot::Axes2D::Ptr axes(new WPlot::Axes2D);
 	ticks->setOrigin(150.0, 200.0);

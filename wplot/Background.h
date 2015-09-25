@@ -18,12 +18,21 @@ public:
 	/** Shared pointer to the class. */
 	typedef std::shared_ptr<Background> Ptr;
 
+	/** Background type */
+	typedef enum {
+		FLAT,    //!< Flat color is used.
+		GRADIENT //!< Gradient is used.
+	} Type;
+
 public:
 
 	Background();
 	virtual ~Background() = default;
 	void setColor(const QColor &color);
 	void setGradient(const QGradient &gradient);
+	QColor getColor() const;
+	QGradient getGradient() const;
+	Type getType() const;
 
 public:
 
@@ -34,14 +43,6 @@ private:
 	void drawFlatBackground(Plot *plot);
 	void drawGradientBackground(Plot *plot);
 
-private:
-
-	/** Background type */
-	typedef enum {
-		FLAT,    //!< Flat color is used.
-		GRADIENT //!< Gradient is used.
-	} Type;
-	
 private:
 
 	QColor m_color;

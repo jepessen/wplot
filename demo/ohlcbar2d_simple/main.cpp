@@ -1,4 +1,4 @@
-#include "wplot/Plot2D.h"
+#include "wplot/CartesianPlot2D.h"
 #include "wplot/OHLCBar2D.h"
 #include <QApplication>
 #include <iostream>
@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	std::cout << "Simple OHLCBar2D inset demo" << std::endl;
 	QApplication a(argc, argv);
-	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
+	WPlot::CartesianPlot2D* plot2D(new WPlot::CartesianPlot2D);
 	WPlot::OHLCBar2D::Ptr ohlcWidget(new WPlot::OHLCBar2D);
 	WPlot::OHLCBar2D::Ptr ohlcPlot(new WPlot::OHLCBar2D);
 	// By default widget coordinate system is used

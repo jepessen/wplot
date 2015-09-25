@@ -29,6 +29,10 @@ file (COPY ${WPLOT_PUBLIC_HEADERS} DESTINATION ${INCLUDE_EXPORT_DIRECTORY})
 
 # Compile project
 add_definitions(-DWPLOT_LIBRARY)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+  message ("MSVC compiler: adding _USE_MATH_DEFINES")
+  add_definitions(-D_USE_MATH_DEFINES)
+endif()
 add_library (wplot SHARED ${WPLOT_SOURCES})
 target_link_libraries(wplot ${Qt5Widgets_LIBRARIES})
 set_target_properties(

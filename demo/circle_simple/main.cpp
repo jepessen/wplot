@@ -1,4 +1,4 @@
-#include "wplot/Plot2D.h"
+#include "wplot/CartesianPlot2D.h"
 #include "wplot/Circle.h"
 #include <QApplication>
 #include <iostream>
@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	std::cout << "Simple circle inset demo" << std::endl;
 	QApplication a(argc, argv);
-	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
+	WPlot::CartesianPlot2D* plot2D(new WPlot::CartesianPlot2D);
 	WPlot::Circle::Ptr circleWidget(new WPlot::Circle);
 	WPlot::Circle::Ptr circlePlot(new WPlot::Circle);
 	// By default widget coordinate system is used

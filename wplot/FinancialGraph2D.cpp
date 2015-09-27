@@ -3,7 +3,7 @@
 namespace WPlot {
 
 FinancialGraph2D::FinancialGraph2D() :
-	Graph2D()
+	CartesianGraph2D()
 {}
 
 /**

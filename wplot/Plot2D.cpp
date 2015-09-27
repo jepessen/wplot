@@ -9,87 +9,11 @@ namespace WPlot {
 
 Plot2D::Plot2D(QWidget *parent) :
 	Plot(parent),
-	m_coordinateType(Plot2D::COORDINATE_WINDOW),
 	m_upperLeftCorner(-1.0, 1.0),
 	m_lowerRightCorner(1.0, -1.0),
 	m_scaleX(1.0),
 	m_scaleY(1.0)
 {}
-
-/**
- * Set the limits of the plot area.
- *
- * @param[in] upperLeftCorner Coordinetes of upper left corner.
- * @param[in] lowerRightCorner Coordinates of lower right corner.
- */
-void Plot2D::setPlotLimits(const QPointF &upperLeftCorner, const QPointF &lowerRightCorner) {
-	m_upperLeftCorner = upperLeftCorner;
-	m_lowerRightCorner = lowerRightCorner;
-}
-
-/**
- * Set the limits of the plot area.
- *
- * @param[in] xMin Minimum X value.
- * @param[in] xMax Maximum X value.
- * @param[in] yMin Minimym Y value.
- * @param[in] yMax Maximym Y value.
- */
-void Plot2D::setPlotLimits(const double &xMin, const double &xMax, const double &yMin, const double &yMax) {
-	m_upperLeftCorner.setX(xMin);
-	m_upperLeftCorner.setY(yMax);
-	m_lowerRightCorner.setX(xMax);
-	m_lowerRightCorner.setY(yMin);
-}
-
-/**
- * Retrieve the upper left corner.
- *
- * @return Corner coordinates.
- */
-QPointF Plot2D::getUpperLeftCorner() const {
-	return m_upperLeftCorner;
-}
-
-/**
- * Retrieve the lower right corner.
- *
- * @return Corner coordinates.
- */
-QPointF Plot2D::getLowerRightCorner() const {
-	return m_lowerRightCorner;
-}
-
-/**
- * Add a grid to the plot.
- *
- * @param[in] grid Grid that must be added.
- */
-void Plot2D::addGrid(const Grid2D::Ptr &grid) {
-	if (grid == nullptr) {
-		return;
-	}
-	m_gridList.append(grid);
-}
-
-/**
- * Add a grid to the plot at specified index.
- *
- * @param[in] index Index.
- * @param[in] grid Grid that must be added.
- */
-void Plot2D::addGrid(const int &index, const Grid2D::Ptr &grid) {
-	if (grid == nullptr) {
-		return;
-	}
-	if (index > m_gridList.size()) {
-		m_gridList.append(grid);
-	} else if (index < 0) {
-		m_gridList.prepend(grid);
-	} else {
-		m_gridList.insert(index, grid);
-	}
-}
 
 /**
  * Add a axes to the plot.
@@ -123,40 +47,6 @@ void Plot2D::addAxes(const int &index, const Axes2D::Ptr &axes) {
 }
 
 /**
- * Add a graph to plot. The graph will be set with highest available index, so
- * it will be the last to be drawn.
- *
- * @param[in] graph Graph to be added.
- */
-void Plot2D::addGraph(const Graph::Ptr &graph) {
-	if (graph == nullptr) {
-		return;
-	}
-	m_graphList.append(graph);
-}
-
-/**
- * Insert a graph in specified position. If a graph exists in that position, it
- * will be moved before it. If an out-of-range index is given, the graph will be
- * put in first or last position.
- *
- * @param[in] index Position index.
- * @param[in] graph Graph to be added.
- */
-void Plot2D::addGraph(const int &index, const Graph::Ptr &graph) {
-	if (graph == nullptr) {
-		return;
-	}
-	if (index > m_graphList.size()) {
-		m_graphList.append(graph);
-	} else if (index < 0) {
-		m_graphList.prepend(graph);
-	} else {
-		m_graphList.insert(index, graph);
-	}
-}
-
-/**
  * Add an item to the plot. The item will be drawn above graphs.
  *
  * @param[in] item Item.
@@ -186,25 +76,6 @@ void Plot2D::addItem(const int &index, const Item2D::Ptr &item) {
 	} else {
 		m_itemList.insert(index, item);
 	}
-}
-
-/**
- * Set the coordinate type. This coordinate is used for layers and elements that
- * have to be set manually. Graph are shown instead using the origin and the zoom.
- *
- * @param[in] type Coordinate type.
- */
-void Plot2D::setCoordinateType(const CoordinateType &type) {
-	m_coordinateType = type;
-}
-
-/**
- * Retrieve the type of coordinates.
- *
- * @return Coordinate type.
- */
-Plot2D::CoordinateType Plot2D::getCoordinateType() const {
-	return m_coordinateType;
 }
 
 /**
@@ -289,25 +160,86 @@ double Plot2D::scalePointY(const double &y) const {
 	return height() - paddingBottom - multY * fracY;
 }
 
+/**
+ * Scale the given point from widget coordinates to plot coordinates.
+ *
+ * @param[in] point Point.
+ *
+ * @return Scaled point in plot coordinates.
+ */
+QPointF Plot2D::inverseScalePoint(const QPointF &point) const {
+	return inverseScalePoint(point.x(), point.y());
+}
+
+/**
+ * Scale the given point from widget coordinates to plot coordinates.
+ *
+ * @param[in] x X coordinate.
+ * @param[in] y Y coordinate.
+ *
+ * @return Scaled point in plot coordinates.
+ */
+QPointF Plot2D::inverseScalePoint(const double &x, const double &y) const {
+	return QPointF(inverseScalePointX(x), inverseScalePointY(y));
+}
+
+/**
+ * Scale the coordiante in X axis from widget coordinates to plot coordinates.
+ *
+ * @param[in] x X coordinate.
+ *
+ * @return Scaled coordinate in plot coordinates.
+ */
+double Plot2D::inverseScalePointX(const double &x) const {
+	const double paddingLeft = m_padding.getLeftPadding(Padding::PIXELS);
+	const double paddingRight = m_padding.getRightPadding(Padding::PIXELS);
+	const double multX = paddingLeft + paddingRight - width();
+	const double a = m_upperLeftCorner.x();
+	const double b = m_lowerRightCorner.x();
+	const double num1 = a * (multX - paddingLeft + x);
+	const double num2 = b * (paddingLeft - x);
+	return (num1 + num2) / multX;
+}
+
+/**
+ * Scale the coordiante in Y axis from widget coordinates to plot coordinates.
+ *
+ * @param[in] y Y coordinate.
+ *
+ * @return Scaled coordinate in plot coordinates.
+ */
+double Plot2D::inverseScalePointY(const double &y) const {
+	const double paddingBottom = m_padding.getBottomPadding(Padding::PIXELS);
+	const double paddingTop = m_padding.getTopPadding(Padding::PIXELS);
+	const double multY = paddingBottom + paddingTop - height();
+	const double a = m_lowerRightCorner.y();
+	const double b = m_upperLeftCorner.y();
+	const double num1 = a * (height() + multY - paddingBottom - y);
+	const double num2 = b * (paddingBottom - height() + y);
+	return (num1 + num2) / multY;
+}
+
+/**
+ * Retrieve the upper left corner.
+ *
+ * @return Corner coordinates.
+ */
+QPointF Plot2D::getUpperLeftCorner() const {
+	return m_upperLeftCorner;
+}
+
+/**
+ * Retrieve the lower right corner.
+ *
+ * @return Corner coordinates.
+ */
+QPointF Plot2D::getLowerRightCorner() const {
+	return m_lowerRightCorner;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // PROTECTED SECTION                                                         //
 ///////////////////////////////////////////////////////////////////////////////
-
-/**
- * Perform drawing. All layers will be drawn starting from the one with the
- * lowest index.
- *
- * @param event Painting event.
- */
-void Plot2D::paintEvent(QPaintEvent * /*event*/) {
-	initPainterCoordinates();
-	drawBackground();
-	drawGrids();
-	drawGraphs();
-	drawAxes();
-	drawItems();
-	drawBoundaries();
-}
 
 /**
  * Initialize coordinate conversion. To be used before paint anything.
@@ -323,35 +255,8 @@ void Plot2D::initPainterCoordinates() {
 	m_screenOriginY = scalePointY(0.0);
 }
 
-/**
- * Draw all grids that are added.
- */
-void Plot2D::drawGrids() {
-	for (auto& it : m_gridList) {
-		it->drawLines(this);
-	}
-}
-
 void Plot2D::drawAxes() {
 	for (auto& it : m_axesList) {
-		it->draw(this);
-	}
-}
-
-/**
- * Draw grid boundaries.
- */
-void Plot2D::drawBoundaries() {
-	for (auto& it : m_gridList) {
-		it->drawBoundary(this);
-	}
-}
-
-/**
- * Draw all graphs that are added.
- */
-void Plot2D::drawGraphs() {
-	for (auto& it : m_graphList) {
 		it->draw(this);
 	}
 }

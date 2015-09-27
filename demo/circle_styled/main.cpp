@@ -1,4 +1,4 @@
-#include "wplot/Plot2D.h"
+#include "wplot/CartesianPlot2D.h"
 #include "wplot/Circle.h"
 #include <QApplication>
 #include <iostream>
@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	std::cout << "Styled circle inset demo" << std::endl;
 	QApplication a(argc, argv);
-	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
+	WPlot::CartesianPlot2D* plot2D(new WPlot::CartesianPlot2D);
 	WPlot::Circle::Ptr circle(new WPlot::Circle);
 	circle->setCoordinates(WPlot::Item2D::COORDINATE_PLOT, WPlot::Item2D::AXIS_X);
 	circle->setRadius(1.3);

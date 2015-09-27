@@ -1,4 +1,4 @@
-#include "wplot/Plot2D.h"
+#include "wplot/CartesianPlot2D.h"
 #include "wplot/Arrow2D.h"
 #include <QApplication>
 #include <iostream>
@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	std::cout << "Styled arrow inset demo" << std::endl;
 	QApplication a(argc, argv);
-	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
+	WPlot::CartesianPlot2D* plot2D(new WPlot::CartesianPlot2D);
 	WPlot::Arrow2D::Ptr arrow(new WPlot::Arrow2D);
 	arrow->setPivotCoordinates(WPlot::Item2D::COORDINATE_PLOT, WPlot::Item2D::AXIS_BOTH);
 	arrow->setDimensionCoordinates(WPlot::Item2D::COORDINATE_WIDGET, WPlot::Item2D::AXIS_BOTH);

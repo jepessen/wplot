@@ -1,4 +1,4 @@
-#include "wplot/Plot2D.h"
+#include "wplot/CartesianPlot2D.h"
 #include "wplot/Text2D.h"
 #include <QApplication>
 #include <iostream>
@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	std::cout << "Styled text inset demo" << std::endl;
 	QApplication a(argc, argv);
-	WPlot::Plot2D* plot2D(new WPlot::Plot2D);
+	WPlot::CartesianPlot2D* plot2D(new WPlot::CartesianPlot2D);
 	WPlot::Text2D::Ptr text(new WPlot::Text2D);
 	const QFont font("Helvetica");
 	text->setPivot(150.0, 200.0);

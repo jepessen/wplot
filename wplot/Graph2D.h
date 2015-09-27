@@ -8,6 +8,10 @@ namespace WPlot {
 class Graph2D : public Graph
 {
 public:
+
+	typedef std::shared_ptr<Graph2D> Ptr;
+
+public:
 	Graph2D();
 	virtual ~Graph2D() = default;
 };

@@ -98,6 +98,18 @@ void CandleStick2D::setBarWidth(const double &width) {
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Set the item color.
+ *
+ * It's an implementation of pure virtual method of base class used when in the
+ * Item2D the color is needed.
+ *
+ * @param[in] color Color.
+ */
+void CandleStick2D::setColor(const QColor &color) {
+
+}
+
+/**
  * Draw the candlestick in specified plot.
  *
  * @param[in] plot Plot where candlestick must be drawn.

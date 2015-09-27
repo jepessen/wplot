@@ -2,14 +2,14 @@
 #define WPLOT_FINANCIALGRAPH2D_H_
 
 #include "wplot/WPlotGlobal.h"
-#include "wplot/Graph2D.h"
+#include "wplot/CartesianGraph2D.h"
 #include "wplot/OHLC.h"
 #include <QVector>
 #include <memory>
 
 namespace WPlot {
 
-class WPLOTSHARED_EXPORT FinancialGraph2D : public Graph2D
+class WPLOTSHARED_EXPORT FinancialGraph2D : public CartesianGraph2D
 {
 public:
 

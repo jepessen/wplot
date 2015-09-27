@@ -53,6 +53,18 @@ void Background::draw(Plot *plot) {
 	}
 }
 
+QColor Background::getColor() const {
+	return m_color;
+}
+
+QGradient Background::getGradient() const {
+	return m_gradient;
+}
+
+Background::Type Background::getType() const {
+	return m_type;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // PRIVATE SECTION                                                          //
 //////////////////////////////////////////////////////////////////////////////

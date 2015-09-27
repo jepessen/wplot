@@ -199,6 +199,20 @@ double Arrow2D::getArrowWidth() const {
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Set the item color.
+ *
+ * It's an implementation of pure virtual method of base class used when in the
+ * Item2D the color is needed.
+ *
+ * @param[in] color Color.
+ */
+void Arrow2D::setColor(const QColor &color) {
+	setArrowFillColor(color);
+	setArrowLineColor(color);
+	setLineColor(color);
+}
+
+/**
  * Draw the arrow.
  *
  * @param[inout] plot Plot where arrow must be plotted.

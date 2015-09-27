@@ -42,7 +42,7 @@ public:
 	double getArrowWidth() const;
 
 public:
-
+	virtual void setColor(const QColor &color);
 	virtual void draw(Plot2D *plot);
 
 private:
